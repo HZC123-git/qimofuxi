@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>期末复习资料站 · 大二下学期</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+  .container { max-width: 700px; margin: 0 auto; }
+
+  .hero { text-align: center; padding: 20px 0 12px; }
+  .hero-icon { font-size: 48px; margin-bottom: 8px; }
+  h1 {
+    font-size: 28px;
+    background: linear-gradient(90deg, #f5af19, #f12711);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .subtitle { color: #aaa; font-size: 14px; margin-bottom: 6px; }
+  .hero-tip {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: #f5af19;
+    margin-top: 8px;
+  }
+
+  .subject {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 14px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .subject:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.3); }
+  .subject-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .subject-icon { font-size: 32px; }
+  .subject-name { font-size: 20px; font-weight: bold; }
+  .exam-date { font-size: 13px; color: #f5af19; margin-left: auto; white-space: nowrap; }
+  .files { display: flex; flex-wrap: wrap; gap: 8px; }
+  .file-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 8px; text-decoration: none;
+    font-size: 14px; font-weight: 500; transition: all 0.2s;
+  }
+  .file-link.knowledge { background: rgba(66,133,244,0.2); color: #8ab4f8; }
+  .file-link.test { background: rgba(234,67,53,0.2); color: #f28b82; }
+  .file-link.recite { background: rgba(251,188,4,0.2); color: #fdd663; }
+  .file-link.quick { background: rgba(52,168,83,0.2); color: #81c995; }
+  .file-link:hover { filter: brightness(1.3); }
+  .file-emoji { font-size: 16px; }
+
+  .coming-soon {
+    opacity: 0.5; text-align: center; padding: 16px;
+    border: 1px dashed rgba(255,255,255,0.2); border-radius: 12px;
+  }
+
+  .share-box {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(245,175,25,0.3);
+    border-radius: 16px; padding: 24px;
+    margin: 32px 0 16px; text-align: center;
+  }
+  .share-box h3 { font-size: 18px; margin-bottom: 8px; }
+  .share-url {
+    display: inline-block;
+    background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px; padding: 10px 20px; font-size: 18px;
+    color: #fdd663; font-family: monospace; letter-spacing: 1px;
+    margin: 10px 0; user-select: all; word-break: break-all;
+  }
+  .share-hint { color: #888; font-size: 13px; margin-top: 8px; line-height: 1.8; }
+
+  .footer { text-align: center; color: #555; font-size: 12px; margin-top: 32px; padding-bottom: 20px; line-height: 1.8; }
+
+  .donate-section {
+    text-align: center; margin-top: 20px;
+    padding: 24px; background: rgba(255,255,255,0.03);
+    border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);
+  }
+  .donate-section h3 { font-size: 18px; margin-bottom: 12px; color: #f5af19; }
+  .donate-qr { max-width: 260px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.12); }
+  .donate-hint { color: #aaa; font-size: 14px; margin-top: 10px; line-height: 1.8; }
+
+  /* ═══ 免责声明弹窗 ═══ */
+  #disclaimer-overlay {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.88); z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .disclaimer-box {
+    background: #1a1a2e; border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px; padding: 28px 24px 20px;
+    max-width: 420px; width: 90%; text-align: center;
+  }
+  .disclaimer-box h2 { font-size: 20px; margin-bottom: 16px; color: #f5af19; }
+  .disclaimer-text {
+    text-align: left; font-size: 13px; color: #aaa; line-height: 1.8;
+    background: rgba(255,255,255,0.03); border-radius: 8px;
+    padding: 14px 16px; margin-bottom: 18px; max-height: 200px; overflow-y: auto;
+  }
+  .disclaimer-agree {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-bottom: 16px; font-size: 14px; color: #ccc; cursor: pointer; user-select: none;
+  }
+  .disclaimer-agree input[type=checkbox] { width: 18px; height: 18px; cursor: pointer; accent-color: #f5af19; }
+  #disclaimer-btn {
+    width: 100%; padding: 12px; border: none; border-radius: 8px;
+    font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s;
+  }
+  #disclaimer-btn.locked { background: rgba(255,255,255,0.1); color: #555; cursor: not-allowed; }
+  #disclaimer-btn.ready { background: linear-gradient(90deg, #f5af19, #f12711); color: #fff; }
+  #disclaimer-btn.ready:hover { filter: brightness(1.2); }
+
+  @media (max-width: 480px) {
+    body { padding: 12px 8px; }
+    h1 { font-size: 24px; }
+    .subject { padding: 14px; }
+    .subject-name { font-size: 17px; }
+    .file-link { font-size: 13px; padding: 6px 10px; }
+    .donate-qr { max-width: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ 免责声明弹窗 ═══ -->
+<div id="disclaimer-overlay">
+  <div class="disclaimer-box">
+    <h2>📋 免责声明</h2>
+    <div class="disclaimer-text">
+      <p>1. 本站资料由 AI 辅助生成，内容来源于课程课件及公开题库，<strong>仅供学习参考</strong>。</p>
+      <p style="margin-top:8px;">2. 资料不保证覆盖全部考试考点，<strong>不对最终考试成绩承担任何责任</strong>。</p>
+      <p style="margin-top:8px;">3. 本站为非盈利性质，<strong>低调使用，为爱发电</strong>。如涉及侵权内容请联系删除。</p>
+      <p style="margin-top:8px;">4. 点击「同意进入」即表示您已阅读并接受以上声明。</p>
+    </div>
+    <label class="disclaimer-agree">
+      <input type="checkbox" id="agree-check">
+      我已阅读并同意以上声明
+    </label>
+    <button id="disclaimer-btn" class="locked" disabled>请先勾选同意声明</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var overlay = document.getElementById('disclaimer-overlay');
+  var cb = document.getElementById('agree-check');
+  var btn = document.getElementById('disclaimer-btn');
+
+  cb.addEventListener('change', function(){
+    if (cb.checked) {
+      btn.className = 'ready';
+      btn.disabled = false;
+      btn.textContent = '同意进入';
+    } else {
+      btn.className = 'locked';
+      btn.disabled = true;
+      btn.textContent = '请先勾选同意声明';
+    }
+  });
+
+  btn.addEventListener('click', function(){
+    if (!cb.checked) return;
+    overlay.style.display = 'none';
+    try { localStorage.setItem('disclaimer_ok', '1'); } catch(e) {}
+  });
+
+  if (localStorage.getItem('disclaimer_ok') === '1') {
+    overlay.style.display = 'none';
+  }
+})();
+</script>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-icon">📚</div>
+    <h1>期末复习资料站</h1>
+    <p class="subtitle">马原 · Linux · 军事理论 · 操作系统 · 数据库</p>
+    <div class="hero-tip">💻 电脑浏览器打开效果更佳 · Ctrl+P 可打印 PDF</div>
+  </div>
+
+  <div style="text-align:center;margin-bottom:20px;padding:14px;background:rgba(234,67,53,0.12);border:2px solid rgba(234,67,53,0.5);border-radius:12px;">
+    <p style="font-size:18px;color:#ea4335;font-weight:bold;letter-spacing:6px;">🚫 严禁作弊 诚信考试 🚫</p>
+    <p style="font-size:13px;color:#f28b82;margin-top:6px;">资料仅供考前复习参考，考试中严禁使用任何电子设备查阅</p>
+  </div>
+
+  <div class="subject">
+    <div class="subject-header">
+      <span class="subject-icon">📖</span>
+      <span class="subject-name">马克思主义基本原理</span>
+      <span class="exam-date">📅 6/4 周四</span>
+    </div>
+    <div class="files">
+      <a href="马原/马原速背卡片.html" class="file-link recite"><span class="file-emoji">⚡</span> 速背卡片</a>
+      <a href="马原/马原背诵检测.html" class="file-link recite"><span class="file-emoji">🧠</span> 背诵检测</a>
+      <a href="马原/马原知识清单.html" class="file-link knowledge"><span class="file-emoji">📋</span> 知识清单</a>
+      <a href="马原/马原章节测试.html" class="file-link test"><span class="file-emoji">📝</span> 测试卷一</a>
+      <a href="马原/马原章节测试2.html" class="file-link test"><span class="file-emoji">📝</span> 测试卷二</a>
+    </div>
+  </div>
+
+  <div class="subject">
+    <div class="subject-header">
+      <span class="subject-icon">🐧</span>
+      <span class="subject-name">Linux系统与应用</span>
+      <span class="exam-date">📅 6/5 周五</span>
+    </div>
+    <div class="files">
+      <a href="Linux系统与应用复习题/Linux命令速查表.html" class="file-link quick"><span class="file-emoji">📟</span> 命令速查表</a>
+      <a href="Linux系统与应用复习题/Linux操作检测.html" class="file-link test"><span class="file-emoji">⌨️</span> 命令默写检测</a>
+    </div>
+  </div>
+
+  <div class="subject">
+    <div class="subject-header">
+      <span class="subject-icon">🎖️</span>
+      <span class="subject-name">军事理论</span>
+      <span class="exam-date">📅 6/5 周五</span>
+    </div>
+    <div class="files">
+      <a href="军事理论/军事理论速背卡片.html" class="file-link recite"><span class="file-emoji">⚡</span> 速背卡片</a>
+      <a href="军事理论/军事理论背诵检测.html" class="file-link test"><span class="file-emoji">🧠</span> 背诵检测</a>
+    </div>
+  </div>
+
+  <div class="subject">
+    <div class="subject-header">
+      <span class="subject-icon">💻</span>
+      <span class="subject-name">计算机操作系统</span>
+      <span class="exam-date">📅 6/7 周日</span>
+    </div>
+    <div class="files">
+      <a href="计算机操作系统/计算机操作系统速背卡片.html" class="file-link recite">
+        <span class="file-emoji">⚡</span> 速背卡片
+      </a>
+      <a href="计算机操作系统/计算机操作系统背诵检测.html" class="file-link test">
+        <span class="file-emoji">🧠</span> 背诵检测
+      </a>
+    </div>
+  </div>
+
+  <div class="subject">
+    <div class="subject-header">
+      <span class="subject-icon">🗄️</span>
+      <span class="subject-name">数据库</span>
+      <span class="exam-date">📅 6/9 周二</span>
+    </div>
+    <div class="coming-soon"><p>⏳ 课件整理中，稍后上线...</p></div>
+  </div>
+
+  <!-- 投稿 -->
+  <div style="text-align:center;margin:24px 0;padding:20px;background:rgba(245,175,25,0.06);border:2px dashed rgba(245,175,25,0.3);border-radius:16px;">
+    <h3 style="font-size:20px;color:#f5af19;margin-bottom:8px;">📮 有科目想加进来？</h3>
+    <p style="font-size:15px;color:#ddd;line-height:2;">
+      把 <strong style="color:#fdd663;">科目名称 + 复习资料</strong> 发给我<br>
+      支持 <strong style="color:#fff;">PDF · Word · TXT</strong> 格式
+    </p>
+    <p style="font-size:17px;color:#fff;margin-top:10px;font-weight:bold;">
+      联系微信：<span style="color:#f5af19;font-size:20px;">hzc15947718276</span>
+    </p>
+  </div>
+
+  <div class="share-box">
+    <h3>🔗 分享给同学</h3>
+    <p style="color:#aaa;font-size:14px;margin-bottom:8px;">复制下方链接发给同学，一起复习！</p>
+    <div class="share-url" onclick="navigator.clipboard.writeText('https://long-files-join.loca.lt')">https://long-files-join.loca.lt</div>
+    <div class="share-hint">
+      💡 微信/QQ 直接发送链接即可打开<br>
+      🖨️ 每份资料都支持 Ctrl+P 打印成 PDF
+    </div>
+  </div>
+
+  <div class="footer">
+    <div style="padding:14px;background:rgba(245,175,25,0.08);border-radius:12px;border:1px solid rgba(245,175,25,0.2);margin-bottom:16px;">
+      <p style="font-size:16px;color:#f5af19;font-weight:bold;letter-spacing:4px;">🤫 低调使用 · 为爱发电</p>
+      <p style="font-size:20px;color:#fff;font-weight:bold;margin-top:8px;text-shadow:0 0 20px rgba(245,175,25,0.6);">🎓 预祝数计学院学子不挂科 🎓</p>
+    </div>
+
+    <p>📚 资料由 AI 辅助整理 · 内容来源课程课件和题库</p>
+
+    <div class="donate-section">
+      <h3>❤️ 如果觉得有用，欢迎赞赏作者</h3>
+      <button id="donate-btn" onclick="var d=document.getElementById('donate-box');if(d.style.display==='none'){d.style.display='block';this.textContent='收起赞赏码'}else{d.style.display='none';this.textContent='❤️ 如果觉得有用，欢迎赞赏作者'}" style="background:linear-gradient(90deg,#f5af19,#f12711);color:#fff;border:none;padding:12px 28px;border-radius:24px;font-size:16px;font-weight:bold;cursor:pointer;">❤️ 赞赏支持</button>
+      <div id="donate-box" style="display:none;margin-top:16px;">
+        <img src="pay_qr.jpg" alt="赞赏码" class="donate-qr">
+        <p class="donate-hint">微信/支付宝扫码 · 金额随意 · 感谢支持 🙏</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

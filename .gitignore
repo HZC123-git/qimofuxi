@@ -1,0 +1,17 @@
+_*/
+*_extracted.txt
+_images/
+*.py
+server.py
+stats.json
+start_server.bat
+*.docx
+*.pdf
+*.jpg
+*.png
+*.jpeg
+军事理论/微信图片*
+!.gitignore
+!index.html
+!*.html
+!pay_qr.jpg
