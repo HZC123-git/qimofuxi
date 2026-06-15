@@ -15,3 +15,6 @@ start_server.bat
 !index.html
 !*.html
 !pay_qr.jpg
+
+# Local Netlify folder
+.netlify

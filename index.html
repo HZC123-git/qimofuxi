@@ -3,307 +3,439 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>期末复习资料站 · 大二下学期</title>
+<title>期末复习资料站</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: #e0e0e0;
-    min-height: 100vh;
-    padding: 24px 16px;
-  }
-  .container { max-width: 700px; margin: 0 auto; }
+:root{
+  --bg:#f9f8f6; --card:#fff; --ink:#1c1c1c; --muted:#6b6b6b; --dim:#b0b0b0;
+  --line:#e0ded8; --r:2px;
+  --c1:#2c4fa0; --c2:#b84530; --c3:#2d7d5e; --c4:#7b4fbf;
+  --c1l:#eef2f9; --c2l:#faf1ef; --c3l:#eef7f3; --c4l:#f6f2fc;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{}
+body{
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg) url(bg.jpg) center/cover fixed;color:var(--ink);min-height:100vh;line-height:1.55;
+  -webkit-font-smoothing:antialiased;position:relative;
+}
+/* ── 字体 ── */
+h1,.sec-head{font-family:"DM Serif Display","Noto Serif SC",serif}
+.sr{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.sr.in{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){.sr{opacity:1;transform:none;transition:none}}
+/* 渐变场罩在图片上 */
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 20%,rgba(255,255,255,.75) 0%,rgba(255,255,255,.4) 60%),
+    radial-gradient(ellipse 60% 50% at 80% 75%,rgba(255,255,255,.6) 0%,rgba(255,255,255,.3) 55%),
+    linear-gradient(to bottom,rgba(255,255,255,.3),rgba(255,255,255,.7) 100%)}
+/* 纹理 — 噪点 */
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+  background-size:256px 256px}
+.container{max-width:680px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
 
-  .hero { text-align: center; padding: 20px 0 12px; }
-  .hero-icon { font-size: 48px; margin-bottom: 8px; }
-  h1 {
-    font-size: 28px;
-    background: linear-gradient(90deg, #f5af19, #f12711);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
-  }
-  .subtitle { color: #aaa; font-size: 14px; margin-bottom: 6px; }
-  .hero-tip {
-    display: inline-block;
-    background: rgba(255,255,255,0.08);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 13px;
-    color: #f5af19;
-    margin-top: 8px;
-  }
+/* ── Hero ── */
+.hero{padding:72px 0 52px}
+.hero h1{font-size:clamp(40px,7vw,64px);font-weight:900;letter-spacing:-0.03em;line-height:.94;margin-bottom:16px;color:var(--ink)}
+.hero p{font-size:16px;color:var(--muted);max-width:420px;line-height:1.6}
+/* 逐字入场 */
+.rv{display:inline-block;animation:revealChar .5s cubic-bezier(.22,1,.36,1) both}
+.rv:nth-child(1){animation-delay:.1s}.rv:nth-child(2){animation-delay:.15s}.rv:nth-child(3){animation-delay:.2s}.rv:nth-child(4){animation-delay:.25s}
+.rv:nth-child(5){animation-delay:.35s}.rv:nth-child(6){animation-delay:.4s}.rv:nth-child(7){animation-delay:.45s}
+@keyframes revealChar{from{opacity:0;transform:translateY(.5em);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@media(prefers-reduced-motion:reduce){.rv{animation:none;opacity:1;filter:none}}
 
-  .subject {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 14px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .subject:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.3); }
-  .subject-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .subject-icon { font-size: 32px; }
-  .subject-name { font-size: 20px; font-weight: bold; }
-  .exam-date { font-size: 13px; color: #f5af19; margin-left: auto; white-space: nowrap; }
-  .files { display: flex; flex-wrap: wrap; gap: 8px; }
-  .file-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 14px; border-radius: 8px; text-decoration: none;
-    font-size: 14px; font-weight: 500; transition: all 0.2s;
-  }
-  .file-link.knowledge { background: rgba(66,133,244,0.2); color: #8ab4f8; }
-  .file-link.test { background: rgba(234,67,53,0.2); color: #f28b82; }
-  .file-link.recite { background: rgba(251,188,4,0.2); color: #fdd663; }
-  .file-link.quick { background: rgba(52,168,83,0.2); color: #81c995; }
-  .file-link:hover { filter: brightness(1.3); }
-  .file-emoji { font-size: 16px; }
+/* ── 线条分隔 ── */
+.line{height:1px;margin:32px 0;background:linear-gradient(to right,transparent,var(--line) 20%,var(--line) 80%,transparent)}
+.line.thin{opacity:.5}
 
-  .coming-soon {
-    opacity: 0.5; text-align: center; padding: 16px;
-    border: 1px dashed rgba(255,255,255,0.2); border-radius: 12px;
-  }
+/* ── 编号章节 ── */
+.sec-num{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:16px}
+.sec-head-row{display:flex;justify-content:space-between;align-items:end;margin-bottom:8px}
+.sec-head{font-size:22px;font-weight:800;letter-spacing:-0.03em}
+.sec-head-num{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:1px;white-space:nowrap}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
 
-  .share-box {
-    background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(245,175,25,0.3);
-    border-radius: 16px; padding: 24px;
-    margin: 32px 0 16px; text-align: center;
-  }
-  .share-box h3 { font-size: 18px; margin-bottom: 8px; }
-  .share-url {
-    display: inline-block;
-    background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 8px; padding: 10px 20px; font-size: 18px;
-    color: #fdd663; font-family: monospace; letter-spacing: 1px;
-    margin: 10px 0; user-select: all; word-break: break-all;
-  }
-  .share-hint { color: #888; font-size: 13px; margin-top: 8px; line-height: 1.8; }
+/* ── 年级选卡 ── */
+.year-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:36px}
+.year-btn{position:relative;background:var(--card);border:1px solid var(--line);padding:28px 8px;cursor:pointer;text-align:center;transition:all .3s cubic-bezier(.7,0,.2,1);overflow:hidden}
+.year-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#c56040,#a84530);transform:scaleY(0);transform-origin:top;transition:transform .35s cubic-bezier(.7,0,.2,1);z-index:0}
+.year-btn:hover{color:#fff;border-color:transparent}
+.year-btn:hover::before{transform:scaleY(1)}
+.year-btn:hover .num,.year-btn:hover .lbl{color:#fff}
+.year-btn .num,.year-btn .lbl{position:relative;z-index:1;transition:color .3s}
+.year-btn .num{font-size:28px;font-weight:800;letter-spacing:-0.03em;color:var(--ink)}
+.year-btn .lbl{font-size:10px;font-weight:700;color:var(--dim);letter-spacing:1px;margin-top:4px}
 
-  .footer { text-align: center; color: #555; font-size: 12px; margin-top: 32px; padding-bottom: 20px; line-height: 1.8; }
+/* ── 列表行 ── */
+.row{display:flex;align-items:baseline;gap:16px;padding:10px 12px;margin:0 -12px;border-bottom:1px solid var(--line);position:relative;transition:background .2s,transform .2s;border-radius:2px}
+.row:hover{background:rgba(0,0,0,.03);transform:translateX(4px)}
+.row:last-child{border-bottom:none}
+.row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--ink);transition:width .25s cubic-bezier(.22,1,.36,1)}
+.row:hover::before{width:3px}
+.row .rn{font-size:11px;font-weight:700;color:var(--dim);min-width:28px}
+.row .rt{flex:1;min-width:0}
+.row .rt .rn2{font-size:15px;font-weight:650;color:var(--ink)}
+.row .rt .rm{font-size:12px;color:var(--dim);margin-top:2px}
+.row .rd{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
 
-  .donate-section {
-    text-align: center; margin-top: 20px;
-    padding: 24px; background: rgba(255,255,255,0.03);
-    border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);
-  }
-  .donate-section h3 { font-size: 18px; margin-bottom: 12px; color: #f5af19; }
-  .donate-qr { max-width: 260px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.12); }
-  .donate-hint { color: #aaa; font-size: 14px; margin-top: 10px; line-height: 1.8; }
+/* ── 横向滑动卡片 ── */
+.card-strip{overflow-x:auto;overflow-y:visible;padding:6px 0 14px;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;position:relative}
+.card-strip::-webkit-scrollbar{display:none}
+/* 右侧淡出指示 */
+.card-strip::before{content:'';position:absolute;right:0;top:0;bottom:0;z-index:2;pointer-events:none;width:36px;background:linear-gradient(to right,transparent 0%,var(--bg) 80%);opacity:0;transition:opacity .35s;border-radius:0}
+.card-strip.has-more::before{opacity:1}
+.card-row{display:flex;gap:8px;width:max-content;padding:0 2px}
+.card-row:hover>.c-card:not(:hover){opacity:.4;transition:opacity .35s ease}
+.c-card{flex:0 0 auto;width:190px;padding:14px 16px 12px;background:var(--card);border:1px solid var(--line);border-radius:4px;scroll-snap-align:start;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .15s ease,box-shadow .15s ease;will-change:transform;user-select:none}
+.c-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.12);transform:translateY(-4px)}
+.c-card:active{transform:scale(.97);transition:transform .05s ease}
+.c-card .cn{display:inline-block;font-size:9px;font-weight:700;color:#fff;letter-spacing:.5px;margin-bottom:4px;background:var(--ink);padding:1px 7px;border-radius:3px;opacity:.7}
+.c-card .ct{font-size:15px;font-weight:650;color:var(--ink);margin-bottom:2px}
+.c-card .cdate{font-size:11px;color:var(--muted)}
+@media(max-width:480px){.c-card{width:165px;padding:10px 12px 8px}.c-card .ct{font-size:13px}}
 
-  /* ═══ 免责声明弹窗 ═══ */
-  #disclaimer-overlay {
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.88); z-index: 99999;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .disclaimer-box {
-    background: #1a1a2e; border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 16px; padding: 28px 24px 20px;
-    max-width: 420px; width: 90%; text-align: center;
-  }
-  .disclaimer-box h2 { font-size: 20px; margin-bottom: 16px; color: #f5af19; }
-  .disclaimer-text {
-    text-align: left; font-size: 13px; color: #aaa; line-height: 1.8;
-    background: rgba(255,255,255,0.03); border-radius: 8px;
-    padding: 14px 16px; margin-bottom: 18px; max-height: 200px; overflow-y: auto;
-  }
-  .disclaimer-agree {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    margin-bottom: 16px; font-size: 14px; color: #ccc; cursor: pointer; user-select: none;
-  }
-  .disclaimer-agree input[type=checkbox] { width: 18px; height: 18px; cursor: pointer; accent-color: #f5af19; }
-  #disclaimer-btn {
-    width: 100%; padding: 12px; border: none; border-radius: 8px;
-    font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s;
-  }
-  #disclaimer-btn.locked { background: rgba(255,255,255,0.1); color: #555; cursor: not-allowed; }
-  #disclaimer-btn.ready { background: linear-gradient(90deg, #f5af19, #f12711); color: #fff; }
-  #disclaimer-btn.ready:hover { filter: brightness(1.2); }
+/* ── 标签 ── */
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.tag{display:inline-block;padding:3px 9px;font-size:10px;font-weight:700;letter-spacing:.3px;text-decoration:none;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .15s ease,box-shadow .15s ease}
+.tag:hover{transform:translateY(-1px);box-shadow:0 2px 6px rgba(0,0,0,.08);filter:brightness(.95)}
+.tag.t1{background:var(--c1l);color:var(--c1)}
+.tag.t2{background:var(--c2l);color:var(--c2)}
+.tag.t3{background:var(--c3l);color:var(--c3)}
+.tag.t4{background:var(--c4l);color:var(--c4)}
+.tag:hover{filter:brightness(.92)}
 
-  @media (max-width: 480px) {
-    body { padding: 12px 8px; }
-    h1 { font-size: 24px; }
-    .subject { padding: 14px; }
-    .subject-name { font-size: 17px; }
-    .file-link { font-size: 13px; padding: 6px 10px; }
-    .donate-qr { max-width: 200px; }
-  }
+/* ── 倒计时 ── */
+.cd{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;margin-left:4px;vertical-align:middle}
+.cd.urg{color:#c0392b;animation:blink 2s infinite}
+.cd.warn{color:#c76f0a}
+.cd.ok{color:var(--c1)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── 状态 ── */
+.st{font-size:10px;font-weight:700;padding:1px 5px;margin-left:3px}
+.st.done{color:var(--c3)}
+.st.wait{color:#c76f0a}
+
+/* ── 返回 ── */
+.back{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:700;color:var(--dim);letter-spacing:1px;cursor:pointer;margin-bottom:24px;user-select:none;transition:color .2s}
+.back:hover{color:var(--ink)}
+/* link underline */
+a[href]:not(.tag):not(.year-btn):not(.back){text-decoration:none;position:relative}
+a[href]:not(.tag):not(.year-btn):not(.back)::after{content:'';position:absolute;bottom:-1px;left:0;width:100%;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+a[href]:not(.tag):not(.year-btn):not(.back):hover::after{transform:scaleX(1)}
+
+/* ── 警告 ── */
+.warn-bar{text-align:center;padding:14px;border:1px solid var(--line);margin-bottom:28px}
+.warn-bar p{font-size:12px;font-weight:700;letter-spacing:3px;color:var(--c2)}
+
+/* ── 底部 ── */
+.foot{margin-top:48px;padding:32px 0;border-top:1px solid var(--line);text-align:center}
+.foot p{font-size:12px;color:var(--dim);line-height:2}
+.foot .copy{font-size:11px;font-family:"SF Mono","Fira Code",monospace;color:var(--dim);margin:8px 0;user-select:all}
+.donate{text-align:center;margin-top:16px}
+.donate span{font-size:12px;color:var(--dim);cursor:pointer;user-select:none}
+.donate span:hover{color:var(--ink)}
+.donate img{max-width:140px;border-radius:4px;margin-top:8px}
+
+/* ── 弹窗 ── */
+#disclaimer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:100;display:flex;align-items:center;justify-content:center}
+.overlay-box{background:var(--card);border:1px solid var(--line);padding:24px;max-width:360px;width:90%}
+.overlay-box h2{font-size:18px;font-weight:800;margin-bottom:10px;letter-spacing:-0.02em}
+.overlay-box .text{font-size:12px;color:var(--muted);line-height:1.7;background:var(--bg);padding:10px 12px;margin-bottom:12px;max-height:140px;overflow-y:auto}
+.overlay-box label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer;margin-bottom:10px}
+.overlay-box input[type=checkbox]{width:14px;height:14px;accent-color:var(--ink)}
+.overlay-box button{width:100%;padding:10px;border:1px solid var(--ink);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.overlay-box button.locked{background:var(--bg);color:var(--dim);border-color:var(--line);cursor:not-allowed}
+.overlay-box button.ready{background:var(--ink);color:#fff}
+.overlay-box button.ready:hover{background:#333}
+
+#year-detail{display:none}
+
+@media(max-width:680px){
+  .year-grid{grid-template-columns:repeat(2,1fr)}
+  .hero p{max-width:100%}
+}
+@media(max-width:420px){
+  .year-btn{padding:20px 6px}.year-btn .num{font-size:24px}
+  .container{padding:0 14px}
+}
+
+/* Preloader */
+#preloader{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .5s,visibility .5s}
+#preloader.hide{opacity:0;visibility:hidden}
+#preloader .pl-text{font-size:13px;font-weight:700;letter-spacing:3px;color:var(--dim);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
 </style>
 </head>
 <body>
 
-<!-- ═══ 免责声明弹窗 ═══ -->
 <div id="disclaimer-overlay">
-  <div class="disclaimer-box">
-    <h2>📋 免责声明</h2>
-    <div class="disclaimer-text">
+  <div class="overlay-box">
+    <h2>免责声明</h2>
+    <div class="text">
       <p>1. 本站资料由 AI 辅助生成，内容来源于课程课件及公开题库，<strong>仅供学习参考</strong>。</p>
-      <p style="margin-top:8px;">2. 资料不保证覆盖全部考试考点，<strong>不对最终考试成绩承担任何责任</strong>。</p>
-      <p style="margin-top:8px;">3. 本站为非盈利性质，<strong>低调使用，为爱发电</strong>。如涉及侵权内容请联系删除。</p>
-      <p style="margin-top:8px;">4. 点击「同意进入」即表示您已阅读并接受以上声明。</p>
+      <p style="margin-top:4px">2. 资料不保证覆盖全部考试考点，<strong>不对最终考试成绩承担任何责任</strong>。</p>
+      <p style="margin-top:4px">3. 本站为非盈利性质，低调使用，为爱发电。</p>
+      <p style="margin-top:4px">4. 点击「同意进入」即表示您已阅读并接受以上声明。</p>
     </div>
-    <label class="disclaimer-agree">
-      <input type="checkbox" id="agree-check">
-      我已阅读并同意以上声明
-    </label>
+    <label><input type="checkbox" id="agree-check"> 我已阅读并同意</label>
     <button id="disclaimer-btn" class="locked" disabled>请先勾选同意声明</button>
   </div>
 </div>
 
 <script>
 (function(){
-  var overlay = document.getElementById('disclaimer-overlay');
-  var cb = document.getElementById('agree-check');
-  var btn = document.getElementById('disclaimer-btn');
-
-  cb.addEventListener('change', function(){
-    if (cb.checked) {
-      btn.className = 'ready';
-      btn.disabled = false;
-      btn.textContent = '同意进入';
-    } else {
-      btn.className = 'locked';
-      btn.disabled = true;
-      btn.textContent = '请先勾选同意声明';
-    }
-  });
-
-  btn.addEventListener('click', function(){
-    if (!cb.checked) return;
-    overlay.style.display = 'none';
-    try { localStorage.setItem('disclaimer_ok', '1'); } catch(e) {}
-  });
-
-  if (localStorage.getItem('disclaimer_ok') === '1') {
-    overlay.style.display = 'none';
-  }
+  var o=document.getElementById('disclaimer-overlay'),c=document.getElementById('agree-check'),b=document.getElementById('disclaimer-btn');
+  c.addEventListener('change',function(){if(c.checked){b.className='ready';b.disabled=false;b.textContent='同意进入'}else{b.className='locked';b.disabled=true;b.textContent='请先勾选同意声明'}});
+  b.addEventListener('click',function(){if(!c.checked)return;o.style.display='none';try{localStorage.setItem('disclaimer_ok','1')}catch(e){}});
+  if(localStorage.getItem('disclaimer_ok')==='1')o.style.display='none';
+window.addEventListener('load',function(){setTimeout(function(){var p=document.getElementById('preloader');if(p)p.classList.add('hide')},400)});
 })();
 </script>
 
 <div class="container">
   <div class="hero">
-    <div class="hero-icon">📚</div>
-    <h1>期末复习资料站</h1>
-    <p class="subtitle">马原 · Linux · 军事理论 · 操作系统 · 数据库</p>
-    <div class="hero-tip">💻 电脑浏览器打开效果更佳 · Ctrl+P 可打印 PDF</div>
+    <h1><span class="rv">期</span><span class="rv">末</span><span class="rv">复</span><span class="rv">习</span><br><span class="rv">资</span><span class="rv">料</span><span class="rv">站</span></h1>
+    <p>大一至专升本，数据科学 / 计算机 / 人工智能，考试科目与复习资料一站汇总</p>
   </div>
 
-  <div style="text-align:center;margin-bottom:20px;padding:14px;background:rgba(234,67,53,0.12);border:2px solid rgba(234,67,53,0.5);border-radius:12px;">
-    <p style="font-size:18px;color:#ea4335;font-weight:bold;letter-spacing:6px;">🚫 严禁作弊 诚信考试 🚫</p>
-    <p style="font-size:13px;color:#f28b82;margin-top:6px;">资料仅供考前复习参考，考试中严禁使用任何电子设备查阅</p>
-  </div>
+  <div class="warn-bar"><p>严禁作弊 诚信考试</p></div>
 
-  <div class="subject">
-    <div class="subject-header">
-      <span class="subject-icon">📖</span>
-      <span class="subject-name">马克思主义基本原理</span>
-      <span class="exam-date">📅 6/4 周四</span>
-    </div>
-    <div class="files">
-      <a href="马原/马原速背卡片.html" class="file-link recite"><span class="file-emoji">⚡</span> 速背卡片</a>
-      <a href="马原/马原背诵检测.html" class="file-link recite"><span class="file-emoji">🧠</span> 背诵检测</a>
-      <a href="马原/马原知识清单.html" class="file-link knowledge"><span class="file-emoji">📋</span> 知识清单</a>
-      <a href="马原/马原章节测试.html" class="file-link test"><span class="file-emoji">📝</span> 测试卷一</a>
-      <a href="马原/马原章节测试2.html" class="file-link test"><span class="file-emoji">📝</span> 测试卷二</a>
+  <!-- ── 首页 ── -->
+  <div id="year-select">
+    <div class="sec-num">选择年级</div>
+    <div class="year-grid">
+      <div class="year-btn fr" onclick="showYear('freshman')"><div class="num">2025 级</div><div class="lbl">FRESHMAN</div></div>
+      <div class="year-btn so" onclick="showYear('sophomore')"><div class="num">2024 级</div><div class="lbl">SOPHOMORE</div></div>
+      <div class="year-btn jr" onclick="showYear('junior')"><div class="num">2023 级</div><div class="lbl">JUNIOR</div></div>
+      <div class="year-btn tr" onclick="showYear('transfer')"><div class="num">专升本</div><div class="lbl">2025 级</div></div>
     </div>
   </div>
 
-  <div class="subject">
-    <div class="subject-header">
-      <span class="subject-icon">🐧</span>
-      <span class="subject-name">Linux系统与应用</span>
-      <span class="exam-date">📅 6/5 周五</span>
-    </div>
-    <div class="files">
-      <a href="Linux系统与应用复习题/Linux命令速查表.html" class="file-link quick"><span class="file-emoji">📟</span> 命令速查表</a>
-      <a href="Linux系统与应用复习题/Linux操作检测.html" class="file-link test"><span class="file-emoji">⌨️</span> 命令默写检测</a>
-    </div>
-  </div>
+  <!-- ── 详情 ── -->
+  <div id="year-detail">
+    <div class="back" onclick="showSelect()">&larr; 返回</div>
 
-  <div class="subject">
-    <div class="subject-header">
-      <span class="subject-icon">🎖️</span>
-      <span class="subject-name">军事理论</span>
-      <span class="exam-date">📅 6/5 周五</span>
-    </div>
-    <div class="files">
-      <a href="军事理论/军事理论速背卡片.html" class="file-link recite"><span class="file-emoji">⚡</span> 速背卡片</a>
-      <a href="军事理论/军事理论背诵检测.html" class="file-link test"><span class="file-emoji">🧠</span> 背诵检测</a>
-    </div>
-  </div>
+    <!-- ══════ 大一 ══════ -->
+    <div class="year-section" data-year="freshman">
+      <div class="sec-head-row"><div class="sec-num">2025 级</div><div class="sec-head-num">FRESHMAN</div></div>
+      <div class="sec-sub">数据科学与大数据技术 / 人工智能 / 计算机科学与技术</div>
+      <div class="line"></div>
 
-  <div class="subject">
-    <div class="subject-header">
-      <span class="subject-icon">💻</span>
-      <span class="subject-name">计算机操作系统</span>
-      <span class="exam-date">📅 6/7 周日</span>
-    </div>
-    <div class="files">
-      <a href="计算机操作系统/计算机操作系统速背卡片.html" class="file-link recite">
-        <span class="file-emoji">⚡</span> 速背卡片
-      </a>
-      <a href="计算机操作系统/计算机操作系统背诵检测.html" class="file-link test">
-        <span class="file-emoji">🧠</span> 背诵检测
-      </a>
-    </div>
-  </div>
+      <div style="margin-bottom:24px">
+        <div style="font-size:14px;font-weight:700;letter-spacing:1px;margin-bottom:10px;color:var(--c1)">数据科学与大数据技术</div>
+        <div class="card-strip"><div class="card-row">
+          <div class="c-card"><div class="cn">01</div><div class="ct">工科数学</div><div class="cdate">7/7</div></div>
+          <div class="c-card"><div class="cn">02</div><div class="ct">离散数学</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">03</div><div class="ct">概率论</div><div class="cdate">6/29</div></div>
+          <div class="c-card"><div class="cn">04</div><div class="ct">面向对象</div><div class="cdate">7/6</div></div>
+        </div></div>
+      </div>
 
-  <div class="subject">
-    <div class="subject-header">
-      <span class="subject-icon">🗄️</span>
-      <span class="subject-name">数据库</span>
-      <span class="exam-date">📅 6/9 周二</span>
-    </div>
-    <div class="coming-soon"><p>⏳ 课件整理中，稍后上线...</p></div>
-  </div>
+      <div style="margin-bottom:24px">
+        <div style="font-size:14px;font-weight:700;letter-spacing:1px;margin-bottom:10px;color:var(--c4)">人工智能</div>
+        <div class="card-strip"><div class="card-row">
+          <div class="c-card"><div class="cn">01</div><div class="ct">高等数学</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">02</div><div class="ct">线性代数</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">03</div><div class="ct">大学物理</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">04</div><div class="ct">面向对象</div><div class="cdate">7/6</div></div>
+          <div class="c-card"><div class="cn">05</div><div class="ct">民族概论</div><div class="cdate">待定</div></div>
+        </div></div>
+      </div>
 
-  <!-- 投稿 -->
-  <div style="text-align:center;margin:24px 0;padding:20px;background:rgba(245,175,25,0.06);border:2px dashed rgba(245,175,25,0.3);border-radius:16px;">
-    <h3 style="font-size:20px;color:#f5af19;margin-bottom:8px;">📮 有科目想加进来？</h3>
-    <p style="font-size:15px;color:#ddd;line-height:2;">
-      把 <strong style="color:#fdd663;">科目名称 + 复习资料</strong> 发给我<br>
-      支持 <strong style="color:#fff;">PDF · Word · TXT</strong> 格式
-    </p>
-    <p style="font-size:17px;color:#fff;margin-top:10px;font-weight:bold;">
-      联系微信：<span style="color:#f5af19;font-size:20px;">hzc15947718276</span>
-    </p>
-  </div>
+      <div style="margin-bottom:24px">
+        <div style="font-size:14px;font-weight:700;letter-spacing:1px;margin-bottom:10px;color:var(--c1)">计算机科学与技术</div>
+        <div class="card-strip"><div class="card-row">
+          <div class="c-card"><div class="cn">01</div><div class="ct">高等数学</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">02</div><div class="ct">大学物理</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">03</div><div class="ct">线性代数</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">04</div><div class="ct">面向对象</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">05</div><div class="ct">数电</div><div class="cdate">7/6</div></div>
+        </div></div>
+      </div>
 
-  <div style="text-align:center;margin:20px 0;padding:12px;background:rgba(234,67,53,0.1);border:2px solid rgba(234,67,53,0.4);border-radius:12px;">
-    <p style="font-size:16px;color:#81c995;font-weight:bold;">✅ 域名已固定，永久可用！如有问题联系微信：hzc15947718276</p>
-  </div>
-
-  <div class="share-box">
-    <h3>🔗 分享给同学</h3>
-    <p style="color:#aaa;font-size:14px;margin-bottom:8px;">复制下方链接发给同学，一起复习！</p>
-    <div class="share-url" onclick="navigator.clipboard.writeText('https://qimofuxi-791.netlify.app')">https://qimofuxi-791.netlify.app</div>
-    <div class="share-hint">
-      💡 微信/QQ 直接发送链接即可打开<br>
-      🖨️ 每份资料都支持 Ctrl+P 打印成 PDF
-    </div>
-  </div>
-
-  <div class="footer">
-    <div style="padding:14px;background:rgba(245,175,25,0.08);border-radius:12px;border:1px solid rgba(245,175,25,0.2);margin-bottom:16px;">
-      <p style="font-size:16px;color:#f5af19;font-weight:bold;letter-spacing:4px;">🤫 低调使用 · 为爱发电</p>
-      <p style="font-size:20px;color:#fff;font-weight:bold;margin-top:8px;text-shadow:0 0 20px rgba(245,175,25,0.6);">🎓 预祝数计学院学子不挂科 🎓</p>
-    </div>
-
-    <p>📚 资料由 AI 辅助整理 · 内容来源课程课件和题库</p>
-
-    <div class="donate-section">
-      <h3>❤️ 如果觉得有用，欢迎赞赏作者</h3>
-      <button id="donate-btn" onclick="var d=document.getElementById('donate-box');if(d.style.display==='none'){d.style.display='block';this.textContent='收起赞赏码'}else{d.style.display='none';this.textContent='❤️ 如果觉得有用，欢迎赞赏作者'}" style="background:linear-gradient(90deg,#f5af19,#f12711);color:#fff;border:none;padding:12px 28px;border-radius:24px;font-size:16px;font-weight:bold;cursor:pointer;">❤️ 赞赏支持</button>
-      <div id="donate-box" style="display:none;margin-top:16px;">
-        <img src="pay_qr.jpg" alt="赞赏码" class="donate-qr">
-        <p class="donate-hint">微信/支付宝扫码 · 金额随意 · 感谢支持 🙏</p>
+      <div class="line thin"></div>
+      <div style="margin-bottom:24px">
+        <div style="font-size:14px;font-weight:700;letter-spacing:1px;margin-bottom:10px;color:var(--dim)">公共课</div>
+        <div class="card-strip"><div class="card-row">
+          <div class="c-card"><div class="cn">*</div><div class="ct">大学英语二</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">*</div><div class="ct">军事理论<span class="st done">已考完</span></div><div class="cdate">已考完</div><div class="c-tags"><div class="tags"><a href="军事理论/军事理论速背卡片.html" class="tag t4">速背卡片</a><a href="军事理论/军事理论背诵检测.html" class="tag t2">背诵检测</a><a href="军事理论/军事理论背诵检测2.html" class="tag t2">检测卷二</a></div></div></div>
+        </div></div>
       </div>
     </div>
+
+    <!-- ══════ 大二 ══════ -->
+    <div class="year-section" data-year="sophomore">
+      <div class="sec-head-row"><div class="sec-num">2024 级</div><div class="sec-head-num">SOPHOMORE</div></div>
+      <div class="sec-sub">数据科学与大数据技术 / 计算机科学与技术</div>
+      <div class="line"></div>
+
+      <div style="margin-bottom:24px">
+        <div style="font-size:14px;font-weight:700;letter-spacing:1px;margin-bottom:10px;color:var(--c2)">数据科学与大数据技术</div>
+        <div class="card-strip"><div class="card-row">
+          <div class="c-card"><div class="cn">01</div><div class="ct">多元统计</div><div class="cdate">7/7</div></div>
+          <div class="c-card"><div class="cn">02</div><div class="ct">算法设计</div><div class="cdate">7/1</div></div>
+          <div class="c-card"><div class="cn">03</div><div class="ct">Linux<span class="st done">已完成</span></div><div class="cdate">已完成</div><div class="c-tags"><div class="tags"><a href="Linux系统与应用复习题/Linux命令速查表.html" class="tag t3">命令速查表</a><a href="Linux系统与应用复习题/Linux操作检测.html" class="tag t2">命令默写</a><a href="Linux系统与应用复习题/Linux大题练习.html" class="tag t2">大题练习</a></div></div></div>
+          <div class="c-card"><div class="cn">04</div><div class="ct">操作系统<span class="st done">已完成</span></div><div class="cdate">已完成</div><div class="c-tags"><div class="tags"><a href="计算机操作系统/计算机操作系统速背卡片.html" class="tag t4">速背卡片</a><a href="计算机操作系统/计算机操作系统背诵检测.html" class="tag t2">背诵检测</a><a href="计算机操作系统/计算机操作系统大题练习.html" class="tag t2">大题一</a><a href="计算机操作系统/计算机操作系统大题练习2.html" class="tag t2">大题二</a></div></div></div>
+          <div class="c-card"><div class="cn">05</div><div class="ct">数据库<span class="st done">已完成</span></div><div class="cdate">已完成</div><div class="c-tags"><div class="tags"><a href="数据库/数据库速背卡片.html" class="tag t4">速背卡片</a><a href="数据库/数据库原题练习.html" class="tag t2">原题练习</a><a href="数据库/数据库知识清单.html" class="tag t1">知识清单</a><a href="数据库/数据库大题练习.html" class="tag t2">大题练习</a></div></div></div>
+        </div></div>
+      </div>
+
+      <div style="margin-bottom:24px">
+        <div style="font-size:14px;font-weight:700;letter-spacing:1px;margin-bottom:10px;color:var(--c1)">计算机科学与技术</div>
+        <div class="card-strip"><div class="card-row">
+          <div class="c-card"><div class="cn">01</div><div class="ct">计算机网络</div><div class="cdate">7/6</div></div>
+          <div class="c-card"><div class="cn">02</div><div class="ct">Linux</div><div class="cdate">6/29</div></div>
+          <div class="c-card"><div class="cn">03</div><div class="ct">操作系统</div><div class="cdate">6/24</div></div>
+          <div class="c-card"><div class="cn">04</div><div class="ct">数据库</div><div class="cdate">7/2</div></div>
+        </div></div>
+      </div>
+
+      <div class="line thin"></div>
+      <div style="margin-bottom:24px">
+        <div style="font-size:14px;font-weight:700;letter-spacing:1px;margin-bottom:10px;color:var(--dim)">公共课</div>
+        <div class="card-strip"><div class="card-row">
+          <div class="c-card"><div class="cn">*</div><div class="ct">大学英语四</div><div class="cdate">待定</div></div>
+          <div class="c-card"><div class="cn">*</div><div class="ct">马克思主义基本原理<span class="st done">已考完</span></div><div class="cdate">已考完</div><div class="c-tags"><div class="tags"><a href="马原/马原速背卡片.html" class="tag t4">速背卡片</a><a href="马原/马原背诵检测.html" class="tag t4">背诵检测</a><a href="马原/马原知识清单.html" class="tag t1">知识清单</a><a href="马原/马原章节测试.html" class="tag t2">测试卷一</a><a href="马原/马原章节测试2.html" class="tag t2">测试卷二</a></div></div></div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ══════ 大三 ══════ -->
+    <div class="year-section" data-year="junior">
+      <div class="sec-head-row"><div class="sec-num">2023 级</div><div class="sec-head-num">JUNIOR</div></div>
+      <div class="line"></div>
+      <div class="card-strip"><div class="card-row">
+        <div class="c-card"><div class="cn">01</div><div class="ct">软件工程</div><div class="cdate">6/24</div></div>
+        <div class="c-card"><div class="cn">02</div><div class="ct">人工智能</div><div class="cdate">7/6</div></div>
+      </div></div>
+    </div>
+
+    <!-- ══════ 专升本 ══════ -->
+    <div class="year-section" data-year="transfer">
+      <div class="sec-head-row"><div class="sec-num">2025 级专升本</div><div class="sec-head-num">专升本</div></div>
+      <div class="line"></div>
+      <div class="card-strip"><div class="card-row">
+        <div class="c-card"><div class="cn">01</div><div class="ct">操作系统</div><div class="cdate">6/24</div></div>
+        <div class="c-card"><div class="cn">02</div><div class="ct">软件工程</div><div class="cdate">6/24</div></div>
+        <div class="c-card"><div class="cn">03</div><div class="ct">数据库</div><div class="cdate">7/2</div></div>
+        <div class="c-card"><div class="cn">04</div><div class="ct">大数据处理</div><div class="cdate">7/6</div></div>
+        <div class="c-card"><div class="cn">05</div><div class="ct">面向对象</div><div class="cdate">7/7</div></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div style="text-align:center;padding:24px 0">
+    <p style="font-size:12px;font-family:'SF Mono','Fira Code',monospace;color:var(--dim);user-select:all;margin-bottom:6px">qimofuxi-791.netlify.app</p>
+    <p style="font-size:11px;color:var(--dim)">点击复制链接分享给同学</p>
+  </div>
+
+  <div class="donate">
+    <span id="dt" onclick="var d=document.getElementById('db');var t=this;if(d.style.display==='block'){d.style.display='none';t.textContent='赞赏作者'}else{d.style.display='block';t.textContent='收起'}">赞赏作者</span>
+    <div id="db" style="display:none"><p style="font-size:11px;color:var(--dim);margin:6px 0">微信扫码 &middot; 金额随意</p><img src="pay_qr.jpg" alt="微信赞赏码"></div>
+  </div>
+
+  <div class="foot">
+    <p style="font-weight:600;color:var(--ink)">欢迎转发使用</p>
+    <p>如有想加入的资料，联系微信 hzc15947718276</p>
+    <p style="margin-top:10px;font-size:10px;color:var(--dim)">资料由 AI 辅助整理 &middot; 内容来源课程课件和题库</p>
   </div>
 </div>
+
+<script>
+(function(){
+  var t=new Date();t.setHours(0,0,0,0);var y=t.getFullYear();
+  function pd(tx){var m=tx.match(/(\d{1,2})\/(\d{1,2})/);if(!m)return null;var mo=parseInt(m[1]),d=parseInt(m[2]);if(mo<1||mo>12||d<1||d>31)return null;return new Date(y,mo-1,d)}
+  document.querySelectorAll('.rd').forEach(function(el){var e=pd(el.textContent);if(!e||e<t)return;var days=Math.ceil((e-t)/86400000);var cls=days<=3?'cd urg':days<=7?'cd warn':'cd ok';var label=days===0?'今天':days===1?'明天':days+'天后';var b=document.createElement('span');b.className=cls;b.textContent=label;el.appendChild(b)});
+})();
+function showYear(y){
+  document.querySelectorAll('#year-detail .year-section').forEach(function(s){s.style.display='none'});
+  var el=document.querySelector('#year-detail .year-section[data-year="'+y+'"]');
+  if(el)el.style.display='';
+  document.getElementById('year-select').style.display='none';
+  document.getElementById('year-detail').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+  // 触发卡片动画
+  setTimeout(function(){
+    if(!el)return;
+    el.querySelectorAll('.c-card.sr').forEach(function(c){c.classList.remove('sr','in')});
+    requestAnimationFrame(function(){
+      el.querySelectorAll('.c-card').forEach(function(c,i){
+        c.classList.add('sr');c.style.transitionDelay=(i*40)+'ms';
+        requestAnimationFrame(function(){c.classList.add('in')});
+      });
+    });
+  },50);
+}
+function showSelect(){
+  document.getElementById('year-select').style.display='';
+  document.getElementById('year-detail').style.display='none';
+  document.querySelectorAll('#year-detail .year-section').forEach(function(s){s.style.display=''});
+  window.scrollTo({top:0,behavior:'smooth'})
+}
+// ── 滚动渐入 ──
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var els=document.querySelectorAll('.row,.year-btn,.warn-bar,.hero p,.sec-head-row,.sec-sub,.c-card');
+  els.forEach(function(el,i){el.classList.add('sr');el.style.setProperty('--i',i%8);el.style.transitionDelay='calc(var(--i) * 60ms)'});
+  var ob=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+  els.forEach(function(el){ob.observe(el)});
+})();
+
+/* ── 卡片倒计时 ── */
+(function(){
+  var t=new Date();t.setHours(0,0,0,0);var y=t.getFullYear();
+  function pd(tx){var m=tx.match(/(\d{1,2})\/(\d{1,2})/);if(!m)return null;var mo=parseInt(m[1]),d=parseInt(m[2]);if(mo<1||mo>12||d<1||d>31)return null;return new Date(y,mo-1,d)}
+  document.querySelectorAll('.c-card .cdate').forEach(function(el){var e=pd(el.textContent);if(!e||e<t)return;var days=Math.ceil((e-t)/86400000);var cls=days<=3?'cd urg':days<=7?'cd warn':'cd ok';var label=days===0?'今天':days===1?'明天':days+'天后';var b=document.createElement('span');b.className=cls;b.textContent=label;el.appendChild(b)});
+})();
+
+/* ── 滚轮横向滑动 + 边缘指示器 ── */
+document.querySelectorAll('.card-strip').forEach(function(s){
+  function upd(){s.classList.toggle('has-more',s.scrollLeft<s.scrollWidth-s.clientWidth-5)}
+  s.addEventListener('wheel',function(e){
+    if(Math.abs(e.deltaY)<=Math.abs(e.deltaX))return;
+    var atEnd=e.deltaY>0&&s.scrollLeft>=s.scrollWidth-s.clientWidth-2;
+    var atStart=e.deltaY<0&&s.scrollLeft<=2;
+    if(atEnd||atStart)return;
+    e.preventDefault();s.scrollLeft+=e.deltaY*1.2;upd();
+  },{passive:false});
+  s.addEventListener('scroll',upd);upd();
+  new ResizeObserver(upd).observe(s);
+});
+
+/* ── 键盘导航：← → 切年级，Esc 返回 ── */
+(function(){
+  var grades=['freshman','sophomore','junior','transfer'],idx=0;
+  document.addEventListener('keydown',function(e){
+    if(document.getElementById('year-detail').style.display==='block'){
+      if(e.key==='Escape'){showSelect();return}
+      if(e.key==='ArrowLeft'){idx=Math.max(0,idx-1);showYear(grades[idx])}
+      if(e.key==='ArrowRight'){idx=Math.min(3,idx+1);showYear(grades[idx])}
+    }else if(document.getElementById('year-detail').style.display==='none'){
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'){idx=Math.min(3,idx+1);showYear(grades[idx])}
+      if(e.key==='ArrowLeft'||e.key==='ArrowUp'){idx=Math.max(0,idx-1);showYear(grades[idx])}
+    }
+  });
+})();
+
+/* ── 3D 卡片倾斜 ── */
+document.querySelectorAll('.c-card').forEach(function(card){
+  card.addEventListener('mousemove',function(e){
+    var r=card.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-.5;
+    var y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform='perspective(600px) rotateY('+(x*8)+'deg) rotateX('+(-y*6)+'deg) translateY(-3px)';
+  });
+  card.addEventListener('mouseleave',function(){card.style.transform=''});
+});
+</script>
 </body>
 </html>
