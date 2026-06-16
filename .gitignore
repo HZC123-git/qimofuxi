@@ -17,6 +17,8 @@ start_server.bat
 !pay_qr.jpg
 !og-image.jpg
 !bg.webp
+!exams.json
+!app.py
 
 # Local Netlify folder
 .netlify
