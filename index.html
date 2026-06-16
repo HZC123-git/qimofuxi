@@ -484,26 +484,6 @@ document.querySelectorAll('.card-strip').forEach(function(s){
   window.addEventListener('hashchange',checkHash);
 })();
 
-/* ── 移动端左右滑动切换年级 ── */
-(function(){
-  var el=document.getElementById('year-detail');
-  var sx=0,sy=0;
-  var grades=['freshman','sophomore','junior','transfer'];
-  el.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
-  el.addEventListener('touchend',function(e){
-    if(el.style.display!=='block')return;
-    var dx=e.changedTouches[0].clientX-sx;
-    var dy=e.changedTouches[0].clientY-sy;
-    if(Math.abs(dx)<Math.abs(dy)||Math.abs(dx)<50)return;
-    var secs=document.querySelectorAll('#year-detail .year-section');
-    var cur='';
-    for(var i=0;i<secs.length;i++){if(secs[i].style.display!=='none'){cur=secs[i].getAttribute('data-year');break}}
-    var idx=grades.indexOf(cur);
-    if(dx<0&&idx<grades.length-1)showYear(grades[idx+1]);
-    if(dx>0&&idx>0)showYear(grades[idx-1]);
-  });
-})();
-
 /* ── 3D 卡片倾斜 ── */
 document.querySelectorAll('.c-card').forEach(function(card){
   card.addEventListener('mousemove',function(e){
