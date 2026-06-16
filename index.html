@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>期末复习资料站</title>
+<meta name="description" content="大一至专升本，数据科学/计算机/人工智能，考试科目与复习资料一站汇总。Linux、数据库、操作系统、马原等课程速背卡片、原题练习、大题练习。">
+<meta name="keywords" content="期末复习,复习资料,考试,Linux,数据库,操作系统,马原,大学,专升本,鄂尔多斯应用技术学院">
+<!-- Open Graph / 微信 & QQ 分享卡片 -->
+<meta property="og:title" content="期末复习资料站">
+<meta property="og:description" content="大一至专升本 · 数据科学/计算机/AI · 考试科目与复习资料一站汇总">
+<meta property="og:image" content="https://oitedu.online/og-image.jpg">
+<meta property="og:url" content="https://oitedu.online">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="期末复习资料站">
+<meta property="og:locale" content="zh_CN">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="期末复习资料站">
+<meta name="twitter:description" content="大一至专升本 · 数据科学/计算机/AI · 考试科目与复习资料一站汇总">
+<meta name="twitter:image" content="https://oitedu.online/og-image.jpg">
+<!-- Favicon (SVG 书本图标) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231c1c1c'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='white' font-family='serif'%3E📖%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -18,7 +35,7 @@
 html{}
 body{
   font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-  background:var(--bg) url(bg.jpg) center/cover fixed;color:var(--ink);min-height:100vh;line-height:1.55;
+  background:var(--bg) url(bg.webp) center/cover fixed;color:var(--ink);min-height:100vh;line-height:1.55;
   -webkit-font-smoothing:antialiased;position:relative;
 }
 /* ── 字体 ── */
@@ -89,6 +106,10 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
 /* 右侧淡出指示 */
 .card-strip::before{content:'';position:absolute;right:0;top:0;bottom:0;z-index:2;pointer-events:none;width:36px;background:linear-gradient(to right,transparent 0%,var(--bg) 80%);opacity:0;transition:opacity .35s;border-radius:0}
 .card-strip.has-more::before{opacity:1}
+/* 滚动进度圆点 */
+.scroll-dots{display:flex;justify-content:center;gap:5px;margin-top:1px;height:6px}
+.scroll-dot{width:4px;height:4px;border-radius:50%;background:var(--line);transition:all .28s}
+.scroll-dot.active{background:var(--ink);width:14px;border-radius:3px}
 .card-row{display:flex;gap:8px;width:max-content;padding:0 2px}
 .card-row:hover>.c-card:not(:hover){opacity:.4;transition:opacity .35s ease}
 .c-card{flex:0 0 auto;width:190px;padding:14px 16px 12px;background:var(--card);border:1px solid var(--line);border-radius:4px;scroll-snap-align:start;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .15s ease,box-shadow .15s ease;will-change:transform;user-select:none}
@@ -362,7 +383,11 @@ function showYear(y){
   if(el)el.style.display='';
   document.getElementById('year-select').style.display='none';
   document.getElementById('year-detail').style.display='block';
+  // 更新 URL hash（支持直接分享链接）
+  try{history.replaceState(null,'','#'+y)}catch(e){}
   window.scrollTo({top:0,behavior:'smooth'});
+  // 初始化卡片滚动圆点
+  setTimeout(function(){if(el)initDots(el)},100);
   // 触发卡片动画
   setTimeout(function(){
     if(!el)return;
@@ -379,6 +404,7 @@ function showSelect(){
   document.getElementById('year-select').style.display='';
   document.getElementById('year-detail').style.display='none';
   document.querySelectorAll('#year-detail .year-section').forEach(function(s){s.style.display=''});
+  try{history.replaceState(null,'',window.location.pathname)}catch(e){}
   window.scrollTo({top:0,behavior:'smooth'})
 }
 // ── 滚动渐入 ──
@@ -396,6 +422,26 @@ function showSelect(){
   function pd(tx){var m=tx.match(/(\d{1,2})\/(\d{1,2})/);if(!m)return null;var mo=parseInt(m[1]),d=parseInt(m[2]);if(mo<1||mo>12||d<1||d>31)return null;return new Date(y,mo-1,d)}
   document.querySelectorAll('.c-card .cdate').forEach(function(el){var e=pd(el.textContent);if(!e||e<t)return;var days=Math.ceil((e-t)/86400000);var cls=days<=3?'cd urg':days<=7?'cd warn':'cd ok';var label=days===0?'今天':days===1?'明天':days+'天后';var b=document.createElement('span');b.className=cls;b.textContent=label;el.appendChild(b)});
 })();
+
+/* ── 卡片滚动圆点生成 ── */
+function initDots(container){
+  container.querySelectorAll('.card-strip').forEach(function(s){
+    var old=s.parentNode.querySelector('.scroll-dots');if(old)old.remove();
+    var dc=document.createElement('div');dc.className='scroll-dots';
+    s.parentNode.insertBefore(dc,s.nextSibling);
+    function rf(){
+      var c=s.querySelector('.c-card');var iw=c?c.offsetWidth+8:198;
+      var n=s.querySelectorAll('.c-card').length;
+      var v=Math.max(1,Math.floor(s.clientWidth/iw));
+      var p=Math.max(1,n-v+1);
+      if(p<=1){dc.style.display='none';return}
+      dc.style.display='flex';var cur=Math.min(p-1,Math.round(s.scrollLeft/iw));
+      var h='';for(var i=0;i<p;i++)h+='<span class="scroll-dot'+(i===cur?' active':'')+'"></span>';
+      dc.innerHTML=h;
+    }
+    s.addEventListener('scroll',rf);new ResizeObserver(rf).observe(s);rf();
+  });
+}
 
 /* ── 滚轮横向滑动 + 边缘指示器 ── */
 document.querySelectorAll('.card-strip').forEach(function(s){
@@ -423,6 +469,38 @@ document.querySelectorAll('.card-strip').forEach(function(s){
       if(e.key==='ArrowRight'||e.key==='ArrowDown'){idx=Math.min(3,idx+1);showYear(grades[idx])}
       if(e.key==='ArrowLeft'||e.key==='ArrowUp'){idx=Math.max(0,idx-1);showYear(grades[idx])}
     }
+  });
+})();
+
+/* ── Hash 导航：页面加载时自动跳转 + 浏览器前进后退 ── */
+(function(){
+  var grades=['freshman','sophomore','junior','transfer'];
+  function checkHash(){
+    var h=window.location.hash.replace('#','');
+    if(grades.indexOf(h)!==-1) showYear(h);
+    else if(!h) showSelect();
+  }
+  checkHash();
+  window.addEventListener('hashchange',checkHash);
+})();
+
+/* ── 移动端左右滑动切换年级 ── */
+(function(){
+  var el=document.getElementById('year-detail');
+  var sx=0,sy=0;
+  var grades=['freshman','sophomore','junior','transfer'];
+  el.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+  el.addEventListener('touchend',function(e){
+    if(el.style.display!=='block')return;
+    var dx=e.changedTouches[0].clientX-sx;
+    var dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)<Math.abs(dy)||Math.abs(dx)<50)return;
+    var secs=document.querySelectorAll('#year-detail .year-section');
+    var cur='';
+    for(var i=0;i<secs.length;i++){if(secs[i].style.display!=='none'){cur=secs[i].getAttribute('data-year');break}}
+    var idx=grades.indexOf(cur);
+    if(dx<0&&idx<grades.length-1)showYear(grades[idx+1]);
+    if(dx>0&&idx>0)showYear(grades[idx-1]);
   });
 })();
 
