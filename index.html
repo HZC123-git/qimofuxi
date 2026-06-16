@@ -216,6 +216,16 @@ a[href]:not(.tag):not(.year-btn):not(.back):hover::after{transform:scaleX(1)}
   .donate span:hover{color:var(--ink)}
 }
 
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── 继续上次 ── */
+.continue-bar{display:none;background:var(--card);border-bottom:1px solid var(--line);padding:11px 0;text-align:center;position:relative;z-index:2;animation:slideDown .35s ease}
+.continue-bar.show{display:block}
+.continue-bar a{font-size:14px;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.continue-bar a:hover{color:var(--accent)}
+.continue-bar .close-ctn{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:18px;cursor:pointer;color:var(--dim);line-height:1}
+.continue-bar .close-ctn:hover{color:var(--ink)}
+
 @media(max-width:680px){
   .year-grid{grid-template-columns:repeat(2,1fr)}
   .hero p{max-width:100%}
@@ -258,6 +268,12 @@ a[href]:not(.tag):not(.year-btn):not(.back):hover::after{transform:scaleX(1)}
 window.addEventListener('load',function(){setTimeout(function(){var p=document.getElementById('preloader');if(p)p.classList.add('hide')},400)});
 })();
 </script>
+
+<!-- 继续上次 -->
+<div class="continue-bar" id="continueBar">
+  <a href="#" id="continueLink">📌 继续上次：<span id="continueTitle"></span> →</a>
+  <button class="close-ctn" onclick="dismissContinue()" title="关闭">&times;</button>
+</div>
 
 <div class="container">
   <div class="hero">
@@ -407,6 +423,7 @@ window.addEventListener('load',function(){setTimeout(function(){var p=document.g
     <p style="font-weight:600;color:var(--ink)">欢迎转发使用</p>
     <p>如有想加入的资料，联系微信 hzc15947718276</p>
     <p style="margin-top:10px;font-size:10px;color:var(--dim)">资料由 AI 辅助整理 &middot; 内容来源课程课件和题库</p>
+    <p style="margin-top:6px;font-size:10px;color:var(--dim)" id="visitor-counter"></p>
   </div>
 </div>
 
@@ -523,6 +540,49 @@ document.querySelectorAll('.card-strip').forEach(function(s){
   window.addEventListener('hashchange',checkHash);
 })();
 
+/* ── 继续上次 ── */
+(function(){
+  // 点击任何内部链接时，记录到 localStorage
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('//')) return;
+    var text = a.textContent.trim().slice(0, 30) || href;
+    try {
+      localStorage.setItem('last_page_href', href);
+      localStorage.setItem('last_page_title', text);
+      localStorage.setItem('last_page_time', Date.now());
+    } catch(ex) {}
+  });
+  // 页面加载时，检查是否有上次访问记录（7天内有效）
+  function checkLastPage(){
+    try {
+      var href = localStorage.getItem('last_page_href');
+      var title = localStorage.getItem('last_page_title');
+      var time = parseInt(localStorage.getItem('last_page_time') || '0');
+      if (!href || !title) return;
+      if (Date.now() - time > 7 * 86400000) { clearLastPage(); return; }
+      var bar = document.getElementById('continueBar');
+      var link = document.getElementById('continueLink');
+      var titleEl = document.getElementById('continueTitle');
+      if (bar && link && titleEl) {
+        link.href = href;
+        titleEl.textContent = title;
+        bar.classList.add('show');
+      }
+    } catch(ex) {}
+  }
+  function clearLastPage(){
+    try { localStorage.removeItem('last_page_href'); localStorage.removeItem('last_page_title'); localStorage.removeItem('last_page_time'); } catch(ex) {}
+  }
+  window.dismissContinue = function(){
+    document.getElementById('continueBar').classList.remove('show');
+    clearLastPage();
+  };
+  checkLastPage();
+})();
+
 /* ── 3D 卡片倾斜 ── */
 document.querySelectorAll('.c-card').forEach(function(card){
   card.addEventListener('mousemove',function(e){
@@ -533,6 +593,28 @@ document.querySelectorAll('.c-card').forEach(function(card){
   });
   card.addEventListener('mouseleave',function(){card.style.transform=''});
 });
+
+/* ── 访问计数 ── */
+(function(){
+  var c = document.getElementById('visitor-counter');
+  if (!c) return;
+  fetch('/api/stats')
+    .then(function(r){return r.json()})
+    .then(function(d){
+      c.textContent = '📊 今日 ' + d.today_views + ' 次访问 · 累计 ' + d.total_views + ' 次';
+    })
+    .catch(function(){
+      try {
+        var today = new Date().toLocaleDateString('zh-CN');
+        var d = JSON.parse(localStorage.getItem('visits') || '{}');
+        if (d.date !== today) { d.date = today; d.today = 0; }
+        d.today = (d.today || 0) + 1;
+        d.total = (d.total || 0) + 1;
+        localStorage.setItem('visits', JSON.stringify(d));
+        c.textContent = '📊 今日打开 ' + d.today + ' 次 · 本地累计 ' + d.total + ' 次';
+      } catch(ex) { c.textContent = ''; }
+    });
+})();
 
 </script>
 </body>
