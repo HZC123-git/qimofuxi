@@ -22,7 +22,7 @@ def handle_options():
     if request.method == "OPTIONS":
         return jsonify({"ok": True})
 
-BASE = r"C:\Users\HZC12\Desktop\2026期末复习"
+BASE = os.path.dirname(os.path.abspath(__file__))
 STATS_FILE = os.path.join(BASE, "stats.json")
 EXAMS_FILE = os.path.join(BASE, "exams.json")
 FEEDBACK_FILE = os.path.join(BASE, "feedback.json")
