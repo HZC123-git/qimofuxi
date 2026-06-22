@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>数据库原理 · 大题练习</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<link rel="stylesheet" href="../assets/common.css">
+
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>数据库原理 · 大题练习</h1>
+<h2 style="text-align:center">章节测试</h2>
+<p style="text-align:center;color:var(--ink-light);font-size:0.95em">SQL · 关系代数 · 范式分解 · ER设计 · 闭包计算</p>
+
+<div id="score-box"><div class="score-num" id="score-num">0</div><div class="score-label">总分</div></div>
+<div id="questions-container"></div>
+<div class="grading-bar no-print"><button onclick="gradeAll()" id="grade-btn">提交批改</button></div>
+
+<script>
+var Q = [{"type": "short", "points": 0, "question": "【SQL大题1】有关系S(SNO,SNAME,STATUS,CITY)和P(PNO,PNAME,COLOR,WEIGHT)。写出SQL：(1)查询所有红色零件 (2)查询重量>15的零件名称和重量 (3)查询城市为'Paris'的供应商姓名。", "answer": -1, "explanation": "(1) <strong>SELECT * FROM P WHERE COLOR='红色';</strong>\n(2) <strong>SELECT PNAME, WEIGHT FROM P WHERE WEIGHT>15;</strong>\n(3) <strong>SELECT SNAME FROM S WHERE CITY='Paris';</strong>\n\n关键：SELECT+FROM+WHERE基本结构。", "pitfall": "列名和表名看准了再写。字符串用单引号。"}, {"type": "short", "points": 0, "question": "【SQL大题2】有关系S(SNO,SNAME)、C(CNO,CNAME)、SC(SNO,CNO,GRADE)。写出：(1)查询学过'数据库'课程的学生姓名 (2)查询平均成绩>80的学生学号和平均分 (3)查询没有学过任何课程的学生姓名。", "answer": -1, "explanation": "(1) <strong>SELECT SNAME FROM S JOIN SC ON S.SNO=SC.SNO JOIN C ON SC.CNO=C.CNO WHERE C.CNAME='数据库';</strong>\n(2) <strong>SELECT SNO, AVG(GRADE) FROM SC GROUP BY SNO HAVING AVG(GRADE)>80;</strong>\n(3) <strong>SELECT SNAME FROM S WHERE SNO NOT IN (SELECT SNO FROM SC);</strong>\n\n多表连接用JOIN ON。HAVING对分组后过滤。", "pitfall": "WHERE不行用HAVING（聚合后过滤）。NOT IN用于查不存在的记录。"}, {"type": "short", "points": 0, "question": "【关系代数】有关系R(A,B,C)和S(C,D,E)。写出关系代数表达式：(1)R和S的自然连接 (2)R中B>10的行在A和C上的投影 (3)R和S中C值相同的行做等值连接后投影A,D。", "answer": -1, "explanation": "(1) <strong>R ⋈ S</strong>（自然连接，自动按C连接并去重）\n(2) <strong>π<sub>A,C</sub>(σ<sub>B>10</sub>(R))</strong>\n(3) <strong>π<sub>A,D</sub>(R ⋈<sub>R.C=S.C</sub> S)</strong>\n\nσ=选择行，π=投影列，⋈=连接。", "pitfall": "自然连接自动用同名属性连接，等值连接需显式写出条件。"}, {"type": "short", "points": 0, "question": "【范式大题1】有关系模式R(A,B,C,D)，F={A→B, B→C, C→D}。求：(1)候选码 (2)R属于第几范式？为什么？ (3)若不满足3NF，分解到3NF。", "answer": -1, "explanation": "(1) A⁺=ABCD → 候选码=<strong>A</strong>\n(2) A→B→C→D存在传递依赖(B,C,D都传递依赖于A) → 属于<strong>2NF</strong>（满足2NF，不满足3NF）\n(3) 3NF分解：<strong>R1(A,B)、R2(B,C)、R3(C,D)</strong>\n\n判断步骤：求候选码→检查部分依赖(2NF)→检查传递依赖(3NF)。", "pitfall": "2NF检查非主属性对候选码的部分依赖，3NF检查传递依赖。"}, {"type": "short", "points": 0, "question": "【范式大题2】有关系R(学号,课程号,成绩,姓名,系别)，F={学号→姓名, 学号→系别, (学号,课程号)→成绩}。求：(1)候选码 (2)R属于第几范式？ (3)分解到3NF。", "answer": -1, "explanation": "(1) 候选码=<strong>(学号,课程号)</strong>\n(2) 存在部分依赖：学号→姓名（不需要课程号）。非主属性姓名部分依赖于码 → 属于<strong>1NF</strong>（不满足2NF）\n(3) 消部分依赖分解：\n<strong>R1(学号,课程号,成绩)</strong> 主码(学号,课程号)\n<strong>R2(学号,姓名,系别)</strong> 主码学号\n\n两表通过外码学号关联。", "pitfall": "核心思维：把部分依赖的属性单独分离到以决定因素为主码的新表中。"}, {"type": "short", "points": 0, "question": "【范式大题3】某配件维修表(车牌号,维修时间,配件码,配件名称,供应商,仓库码,仓库地址,配件数量)。F={车牌号+配件码→配件数量, 配件码→配件名称+供应商, 仓库码→仓库地址}。判断范式并分解。", "answer": -1, "explanation": "候选码：(车牌号,配件码,维修时间)\n\n存在的问题：\n① 配件码→配件名称+供应商（部分依赖）\n② 仓库码→仓库地址（传递依赖，配件码→仓库码→仓库地址）\n\n分解方案（3NF）：\n<strong>维修记录(车牌号,维修时间,配件码,配件数量)</strong>\n<strong>配件(配件码,配件名称,供应商,仓库码)</strong>\n<strong>仓库(仓库码,仓库地址)</strong>\n\n外码：维修记录.配件码→配件.配件码，配件.仓库码→仓库.仓库码。", "pitfall": "先识别所有函数依赖，再找候选码，再逐级判断范式。"}, {"type": "short", "points": 0, "question": "【ER设计大题】某医院管理系统：一个供应商可向多家医院供货，每家医院可从多个供应商采购；医院有多个患者，一个患者只能在一家医院就诊；患者可做多次检测，每次检测由一家医院完成。请(1)画出ER图（描述即可）(2)转换为关系模式，标注主码和外码。", "answer": -1, "explanation": "<strong>(1) ER图</strong>：\n实体：供应商(名称,地址,电话)、医院(名称,地址,电话)、患者(身份证号,姓名,电话)\n联系：供货(供应商M:N医院, 含日期属性)、就诊(医院1:N患者)、检测(医院1:N患者, 含检测日期)\n\n<strong>(2) 关系模式</strong>：\n<strong>供应商(名称,地址,电话)</strong> 主码:名称\n<strong>医院(名称,地址,电话)</strong> 主码:名称\n<strong>供货(供应商名称,医院名称,日期)</strong> 主码:供应商名称+医院名称, 外码各参照对应表\n<strong>患者(身份证号,姓名,电话,医院名称)</strong> 主码:身份证号, 外码:医院名称→医院\n<strong>检测(检测ID,身份证号,医院名称,日期)</strong> 主码:检测ID, 外码双向参照", "pitfall": "M:N联系→新建表。1:N联系→外码放N方。"}, {"type": "short", "points": 0, "question": "【ER设计大题2】学校校友捐赠系统：校友可向学校捐款，捐款分一次性/周期性两种。捐款用于资助个人(学生/老师)或工程项目。一个工程可接受多笔捐款，一笔捐款可资助多个工程。请设计ER图并转为关系模式。", "answer": -1, "explanation": "<strong>实体</strong>：校友(校友ID,姓名)、捐款(捐款ID,金额,类型,使用方式)、受益人(受益人ID,姓名,类型)、工程(工程ID,名称)\n\n<strong>联系</strong>：捐赠(校友1:N捐款)、资助个人(捐款1:N受益人)、资助工程(捐款M:N工程, 含金额)\n\n<strong>关系模式</strong>：\n校友(校友ID,姓名) PK:校友ID\n捐款(捐款ID,金额,类型,使用方式,校友ID) PK:捐款ID FK:校友ID\n受益人(受益人ID,姓名,类型,捐款ID) PK:受益人ID FK:捐款ID\n工程(工程ID,名称) PK:工程ID\n资助工程(捐款ID,工程ID,金额) PK:(捐款ID,工程ID) FK双向", "pitfall": "M:N联系必须新建关系，包含两个实体的主码+联系自身的属性。"}, {"type": "short", "points": 0, "question": "【闭包计算】R(A,B,C,D,E)，F={AB→C, C→D, D→E}。求：(1)(AB)⁺ (2)(A)⁺ (3)判断AB是不是候选码。", "answer": -1, "explanation": "(1) (AB)⁺ = AB → ABC(C→D用不了) → 加入C → ABCD(B→?没有，C→D→ABCD) → ABCDE。= <strong>ABCDE</strong>\n(2) (A)⁺ = A（所有依赖都需要AB或C或D，A单独什么也推导不出）= <strong>A</strong>\n(3) (AB)⁺=ABCDE=全集U → AB是<strong>超码</strong>。A⁺≠U且B⁺≠U（B单独也不行） → AB是<strong>候选码</strong>。", "pitfall": "闭包计算的关键：初始化→遍历所有依赖→能用的就用→重复直到不变。"}, {"type": "short", "points": 0, "question": "【闭包计算2】R(A,B,C,D)，F={A→B, B→C, CD→A}。求：(1)(A)⁺ (2)(B)⁺ (3)(CD)⁺ (4)找出所有候选码。", "answer": -1, "explanation": "(1) (A)⁺={A}→{AB}(A→B)→{ABC}(B→C)=<strong>ABC</strong>\n(2) (B)⁺={B}→{BC}(B→C)=<strong>BC</strong>\n(3) (CD)⁺={CD}→{ACD}(CD→A)→{ABCD}(A→B→C)=<strong>ABCD</strong>=U → CD是候选码\n(4) 还需检查AD：(AD)⁺={AD}→{ABD}(A→B)→{ABCD}(B→C)=U → <strong>AD也是候选码</strong>\n候选码：<strong>CD, AD</strong>", "pitfall": "可能有多个候选码！要检查所有可能的属性组合。"}, {"type": "short", "points": 0, "question": "【综合·消毒记录规范化】消毒记录表(日期,车牌号,行驶路线,消毒人工号,消毒员姓名)。F={车牌号→行驶路线, 消毒人工号→消毒员姓名, (日期,车牌号,消毒人工号)→?}。判断范式并规范化到3NF。", "answer": -1, "explanation": "候选码：(日期,车牌号,消毒人工号)\n\n部分依赖：车牌号→行驶路线（不需要整个候选码） → 不满足2NF\n消毒人工号→消毒员姓名（同样部分依赖） → 不满足2NF\n\n<strong>分解</strong>：\nR1(车牌号,行驶路线) PK:车牌号\nR2(消毒人工号,消毒员姓名) PK:消毒人工号\nR3(日期,车牌号,消毒人工号) PK:(日期,车牌号,消毒人工号) FK:车牌号→R1,消毒人工号→R2\n\n如果要记录每次消毒的具体时间，直接加字段到R3即可，不破坏范式。", "pitfall": "实际场景中，同一辆车每天可能多次消毒→需要更精确的时间字段（如时分秒）。"}];
+</script>
+<script src="../assets/common.js"></script>
+</body>
+</html>

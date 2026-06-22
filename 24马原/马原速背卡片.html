@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>马原 · 速背卡片 · 考前突击</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>马原 · 速背卡片 · 考前突击</h1>
+<div class="toc">
+<h2>目录</h2>
+<ul>
+<li><a href="#s57132951">速背清单 考前突击 · 只背这些</a></li>
+<li><a href="#s59458895">一、主观能动性与客观规律 必考·简答</a></li>
+  <li><a href="#s31821611">🔑 核心一句话</a></li>
+  <li><a href="#s56978722">正确发挥主观能动性的三个条件（必背）</a></li>
+  <li><a href="#s42747501">方法论（怎么做）</a></li>
+<li><a href="#s15942128">二、人工智能不能代替人类意识 必考·简答</a></li>
+  <li><a href="#s78229143">四个原因（全背）</a></li>
+<li><a href="#s68049071">三、联系 重点·选择判断</a></li>
+  <li><a href="#s55351227">四大特点（必背）</a></li>
+<li><a href="#s21959876">四、矛盾 必考·论述</a></li>
+  <li><a href="#s55279973">矛盾 = 对立统一关系</a></li>
+  <li><a href="#s91239085">斗争性的两个作用（必背）</a></li>
+  <li><a href="#s71878322">方法论</a></li>
+<li><a href="#s76179488">五、感性认识与理性认识 重点·简答</a></li>
+<li><a href="#s89167473">六、真理的绝对性与相对性 必考·论述</a></li>
+  <li><a href="#s61023363">辩证关系（两个角度）</a></li>
+<li><a href="#s44158615">七、价值 重点</a></li>
+  <li><a href="#s44118979">四大特性（必背）</a></li>
+<li><a href="#s89559304">八、历史选择性 重点</a></li>
+<li><a href="#s87130411">九、社会基本矛盾 必考</a></li>
+<li><a href="#s30346547">十、科技革命 重点</a></li>
+  <li><a href="#s10279163">积极作用</a></li>
+  <li><a href="#s64505306">消极作用（两种情形）</a></li>
+  <li><a href="#s86621130">正确运用</a></li>
+<li><a href="#s60867627">十一、资本积累 必考</a></li>
+  <li><a href="#s16627784">产业资本三阶段</a></li>
+  <li><a href="#s89263588">两个前提</a></li>
+<li><a href="#s85467976">十二、剩余价值理论 重点</a></li>
+<li><a href="#s75913429">十三、资本主义基本矛盾与垄断 重点</a></li>
+  <li><a href="#s57908243">垄断利润来源</a></li>
+<li><a href="#s72712266">十四、社会主义在实践中开拓前进 必考</a></li>
+<li><a href="#s73378142">十五、远大理想与共同理想 必考·论述</a></li>
+<li><a href="#s57988744">考前冲刺 · 一句话必背20条</a></li>
+</ul>
+</div>
+<h2 id="s57132951">速背清单 <span style="color:#e74c3c;font-size:14px;">考前突击 · 只背这些</span></h2>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s59458895">一、主观能动性与客观规律 <span class="tag-must">必考·简答</span></h2>
+
+<div class="mem-card">
+<h3 id="s31821611">🔑 核心一句话</h3>
+<p><span class="kp">尊重客观规律是前提，发挥主观能动性才能认识和利用规律。</span></p>
+</div>
+
+<h3 id="s56978722">正确发挥主观能动性的三个条件（必背）</h3>
+<table>
+<tr><td>① 前提</td><td><span class="kp">从实际出发</span></td></tr>
+<tr><td>② 途径</td><td><span class="kp">实践</span>（根本途径）</td></tr>
+<tr><td>③ 条件</td><td><span class="kp">物质条件和物质手段</span></td></tr>
+</table>
+
+<h3 id="s42747501">方法论（怎么做）</h3>
+<ul>
+<li>遵循历史客观规律，主动积极作为</li>
+<li>用马克思主义立场观点方法观察时代</li>
+<li>在砥砺奋进中释放主观力量</li>
+</ul>
+
+<blockquote>记忆口诀：「前提出发、途径实践、条件物质」—— 三个字：发、实、物</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s15942128">二、人工智能不能代替人类意识 <span class="tag-must">必考·简答</span></h2>
+
+<h3 id="s78229143">四个原因（全背）</h3>
+<table>
+<tr><td>①</td><td><span class="kp">知情意统一体</span> → AI只模拟理性，不具备情感信念意志</td></tr>
+<tr><td>②</td><td><span class="kp">社会性</span> → 人的意识固有社会属性，AI不具备</td></tr>
+<tr><td>③</td><td><span class="kp">自然语言</span> → AI难以理解真实意义</td></tr>
+<tr><td>④</td><td><span class="kp">不可化约</span> → 人脑有许多无法数字化的内容</td></tr>
+</table>
+<blockquote>口诀：「知情意、社会性、自然语言、不可化约」—— 记住四个关键词展开</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s68049071">三、联系 <span class="tag-key">重点·选择判断</span></h2>
+
+<p><span class="kp">联系 = 事物内部各要素之间 + 事物之间，相互影响、相互制约、相互作用</span></p>
+
+<h3 id="s55351227">四大特点（必背）</h3>
+<table>
+<tr><th>特点</th><th>关键词</th></tr>
+<tr><td>客观性</td><td>事物本身固有，不以人的意志转移</td></tr>
+<tr><td>普遍性</td><td>无处不在</td></tr>
+<tr><td>多样性</td><td>形式多种多样</td></tr>
+<tr><td>条件性</td><td>在一定条件下存在</td></tr>
+</table>
+
+<p><span class="kp">方法论：确立整体性开放性观念 + 系统思维 + 动态考察</span></p>
+<blockquote>口诀：「客普多条」—— 客观性、普遍性、多样性、条件性</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s21959876">四、矛盾 <span class="tag-must">必考·论述</span></h2>
+
+<h3 id="s55279973">矛盾 = 对立统一关系</h3>
+
+<table>
+<tr><th></th><th>同一性</th><th>斗争性</th></tr>
+<tr><td>含义</td><td><span class="kp">相互依存、相互贯通</span></td><td><span class="kp">相互排斥、相互分离</span></td></tr>
+<tr><td>作用</td><td>维持矛盾统一体</td><td><span class="kp">推动事物发展变化</span></td></tr>
+</table>
+
+<h3 id="s91239085">斗争性的两个作用（必背）</h3>
+<p>① <span class="kp">促进双方力量变化 → 造成不平衡 → 为质变创造条件</span></p>
+<p>② <span class="kp">是矛盾统一体过渡的决定性力量 → 旧的破裂、新的产生</span></p>
+
+<h3 id="s71878322">方法论</h3>
+<p>① 正确把握和谐的作用 ② <span class="kp">大力发扬斗争精神</span></p>
+
+<blockquote>口诀：「同存通，斗斥离」—— 同一性（依存+贯通），斗争性（排斥+分离）</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s76179488">五、感性认识与理性认识 <span class="tag-key">重点·简答</span></h2>
+
+<p><span class="kp">理性认识依赖于感性认识</span>（唯物论）</p>
+<p><span class="kp">感性认识有待于深化为理性认识</span>（辩证法）</p>
+<p><span class="kp">二者相互渗透、相互包含</span></p>
+
+<blockquote>口诀：「理依感、感待深、互渗透」— 三句话，每句一个角度</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s89167473">六、真理的绝对性与相对性 <span class="tag-must">必考·论述</span></h2>
+
+<table>
+<tr><th></th><th>绝对性</th><th>相对性</th></tr>
+<tr><td>含义</td><td>主客观统一的<span class="kp">确定性</span>+发展的<span class="kp">无限性</span></td><td>认识的<span class="kp">有限度、不完善</span></td></tr>
+</table>
+
+<h3 id="s61023363">辩证关系（两个角度）</h3>
+<p><span class="kp">① 两重性：相互依存</span>，任何真理既是绝对的又是相对的，相互包含</p>
+<p><span class="kp">② 发展性：</span>永远处在由相对真理 → 绝对真理的过程中</p>
+
+<blockquote>易错：反对「相对主义」（只承认相对性）和「绝对主义」（只承认绝对性）</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s44158615">七、价值 <span class="tag-key">重点</span></h2>
+
+<p><span class="kp">价值 = 主体和客体之间意义关系的哲学范畴</span></p>
+
+<h3 id="s44118979">四大特性（必背）</h3>
+<table>
+<tr><td>主体性</td><td>因人而异</td></tr>
+<tr><td>客观性</td><td>有客观基础</td></tr>
+<tr><td>多维性</td><td>同一客体多种价值</td></tr>
+<tr><td>社会历史性</td><td>随历史发展变化</td></tr>
+</table>
+<blockquote>口诀：「主客多历」—— 主体性、客观性、多维性、社会历史性</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s89559304">八、历史选择性 <span class="tag-key">重点</span></h2>
+
+<p>① <span class="kp">必然性提供基础、范围和可能性空间</span></p>
+<p>② <span class="kp">主观能动性与客观规律性相统一</span></p>
+<p>③ <span class="kp">归根到底是人民群众的选择性</span></p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s87130411">九、社会基本矛盾 <span class="tag-must">必考</span></h2>
+
+<p>① <span class="kp">生产力是最终决定力量</span>（最基本的动力因素）</p>
+<p>② <span class="kp">生产力与生产关系矛盾 → 决定其他矛盾</span></p>
+<p>③ <span class="kp">不同表现形式和解决方式 → 促进社会形态变化</span></p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s30346547">十、科技革命 <span class="tag-key">重点</span></h2>
+
+<h3 id="s10279163">积极作用</h3>
+<p>生产方式 + 生活方式 + 思维方式 = 可能跨越式发展</p>
+
+<h3 id="s64505306">消极作用（两种情形）</h3>
+<p>① <span class="kp">认识不够/缺乏控制手段</span></p>
+<p>② <span class="kp">资本主义条件下被用于剥削压迫</span></p>
+
+<h3 id="s86621130">正确运用</h3>
+<p><span class="kp">合理社会制度保障 + 为人类造福</span></p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s60867627">十一、资本积累 <span class="tag-must">必考</span></h2>
+
+<table>
+<tr><th>本质</th><td><span class="kp">无偿占有剩余价值 → 扩大资本 → 加强剥削</span></td></tr>
+<tr><th>后果①</th><td><span class="kp">两极分化</span></td></tr>
+<tr><th>后果②</th><td><span class="kp">失业（资本有机构成提高 → 可变资本减少）</span></td></tr>
+</table>
+
+<h3 id="s16627784">产业资本三阶段</h3>
+<p><span class="kp">购买阶段 → 生产阶段 → 售卖阶段</span></p>
+
+<h3 id="s89263588">两个前提</h3>
+<p><span class="kp">空间并存</span> + <span class="kp">时间继起</span></p>
+
+<blockquote>口诀：「购产销、空并时继」</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s85467976">十二、剩余价值理论 <span class="tag-key">重点</span></h2>
+
+<p><span class="kp">马克思经济学说的核心内容和基石</span></p>
+<p><span class="kp">两大发现 → 社会主义从空想变科学</span>：唯物史观 + 剩余价值理论</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s75913429">十三、资本主义基本矛盾与垄断 <span class="tag-key">重点</span></h2>
+
+<p><span class="kp">基本矛盾 = 生产社会化 + 生产资料资本主义私人占有</span></p>
+
+<h3 id="s57908243">垄断利润来源</h3>
+<ul>
+<li>剥削本国劳动人民</li>
+<li>垄断高价/低价获取非垄断企业利润</li>
+<li>剥削其他国家</li>
+<li>国家政权再分配</li>
+</ul>
+
+<p><span class="kp">垄断价格没有否定价值规律！</span></p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s72712266">十四、社会主义在实践中开拓前进 <span class="tag-must">必考</span></h2>
+
+<p>① <span class="kp">亿万人民群众的伟大实践</span></p>
+<p>② <span class="kp">不断探索的过程</span></p>
+<p>③ <span class="kp">曲折不改变前进趋势</span></p>
+<p>④ <span class="kp">必须有开拓奋进的精神状态</span></p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s73378142">十五、远大理想与共同理想 <span class="tag-must">必考·论述</span></h2>
+
+<table>
+<tr><th>维度</th><th>远大理想（共产主义）</th><th>共同理想（中国特色社会主义）</th></tr>
+<tr><td>时间</td><td>最终理想</td><td>阶段性理想</td></tr>
+<tr><td>层次</td><td>最高纲领</td><td>最低纲领</td></tr>
+<tr><td>范围</td><td>全人类理想</td><td>全体中国人民理想</td></tr>
+</table>
+<blockquote>口诀：「时间→最终/阶段，层次→最高/最低，范围→全人类/全中国」</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="s57988744">考前冲刺 · 一句话必背20条</h2>
+
+<ol class="must-remember">
+<li>尊重客观规律是发挥主观能动性的<span class="kp">前提</span></li>
+<li>发挥主观能动性的根本途径是<span class="kp">实践</span></li>
+<li>AI不能替代人：<span class="kp">知情意、社会性、自然语言、不可化约</span></li>
+<li>联系四特点：<span class="kp">客观性、普遍性、多样性、条件性</span></li>
+<li>矛盾是<span class="kp">对立统一</span>关系</li>
+<li>同一性 → <span class="kp">依存+贯通</span>；斗争性 → <span class="kp">排斥+分离</span></li>
+<li>斗争性推动<span class="kp">质变</span>，是<span class="kp">决定性力量</span></li>
+<li>真理：<span class="kp">既是绝对的又是相对的</span></li>
+<li>价值四特性：<span class="kp">主体性、客观性、多维性、社会历史性</span></li>
+<li>历史选择归根到底是<span class="kp">人民群众</span>的选择</li>
+<li>生产力是<span class="kp">最终决定力量</span></li>
+<li>科技积极作用：<span class="kp">生产方式+生活方式+思维方式</span></li>
+<li>资本积累本质：<span class="kp">无偿占有剩余价值扩大资本</span></li>
+<li>资本积累后果：<span class="kp">两极分化 + 失业</span></li>
+<li>产业资本：<span class="kp">购买→生产→售卖</span>，<span class="kp">空间并存+时间继起</span></li>
+<li>两大发现：<span class="kp">唯物史观 + 剩余价值理论</span> → 社会主义从空想变科学</li>
+<li>资本主义基本矛盾：<span class="kp">生产社会化 vs 生产资料私人占有</span></li>
+<li>垄断价格<span class="kp">没有否定</span>价值规律</li>
+<li>社会主义曲折<span class="kp">不改变前进趋势</span></li>
+<li>远大理想=最终/最高/全人类；共同理想=阶段/最低/全中国</li>
+</ol>
+
+<style>
+.mem-card {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0;
+}
+.mem-card h3 { margin-top: 0; color: #856404; }
+.must-remember {
+    background: #ffeaea;
+    border-left: 4px solid #e74c3c;
+    padding: 16px 20px;
+    font-size: 15px;
+    line-height: 2;
+}
+.must-remember li { margin: 6px 0; }
+</style>
+
+
+</body>
+</html>

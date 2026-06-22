@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>计算机操作系统 · 大题练习 第二套</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<link rel="stylesheet" href="../assets/common.css">
+
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>计算机操作系统 · 大题练习 第二套</h1>
+<h2 style="text-align:center">章节测试</h2>
+<p style="text-align:center;color:var(--ink-light);font-size:0.95em">调度 · 信号量 · 银行家 · 地址转换 · 页面置换 · 磁盘 · 文件系统</p>
+
+<div id="score-box"><div class="score-num" id="score-num">0</div><div class="score-label">总分</div></div>
+<div id="questions-container"></div>
+<div class="grading-bar no-print"><button onclick="gradeAll()" id="grade-btn">提交批改</button></div>
+
+<script>
+var Q = [{"type": "short", "points": 0, "question": "【大题1·调度】有A(8, 3)、B(4, 1)、C(2, 4)、D(6, 2)四个进程同时到达，(服务时间, 优先级数字小优先)。分别计算FCFS和非抢占优先级调度下各进程的带权周转时间及平均值。", "answer": -1, "explanation": "<strong>FCFS(A→B→C→D)</strong>：\nA: 周转8, 带权=8/8=1\nB: 周转12, 带权=12/4=3\nC: 周转14, 带权=14/2=7\nD: 周转20, 带权=20/6≈3.33\n平均带权=(1+3+7+3.33)/4=<strong>3.58</strong>\n\n<strong>非抢占优先级(B→D→A→C)</strong>：\nB: 周转4, 带权=4/4=1\nD: 周转10, 带权=10/6≈1.67\nA: 周转18, 带权=18/8=2.25\nC: 周转20, 带权=20/2=10\n平均带权=(1+1.67+2.25+10)/4=<strong>3.73</strong>", "pitfall": "带权周转=周转时间/服务时间。优先级越小越优先。"}, {"type": "short", "points": 0, "question": "【大题2·时间片轮转】3个进程P1(24)、P2(3)、P3(3)，时间片=4。画出RR调度甘特图，计算各进程周转时间和平均周转时间。", "answer": -1, "explanation": "甘特图：P1(0-4)→P2(4-7)→P3(7-10)→P1(10-14)→P1(14-18)→P1(18-22)→P1(22-26)→P1(26-30)\n\n周转时间：P1=30, P2=7, P3=10\n平均周转=(30+7+10)/3=<strong>15.67</strong>\n\n注意：短进程P2、P3很快完成，P1一直运行到最后。", "pitfall": "RR对短进程友好(周转小)，长进程周转大。"}, {"type": "short", "points": 0, "question": "【大题3·信号量】三个进程P1、P2、P3协作：P1先执行，然后P2执行，最后P3执行。请用信号量实现顺序执行。", "answer": -1, "explanation": "信号量：s12=0(P2等P1), s23=0(P3等P2)\n\nP1: {执行P1; signal(s12);}\nP2: {wait(s12); 执行P2; signal(s23);}\nP3: {wait(s23); 执行P3;}\n\n这是最简单的串行同步。", "pitfall": "每个后驱进程wait前驱进程的signal。"}, {"type": "short", "points": 0, "question": "【大题4·读者写者】请用信号量实现读者优先的读者-写者问题。写出信号量定义和读者、写者的伪代码。", "answer": -1, "explanation": "信号量：mutex=1(保护readcount), wmutex=1(写者互斥), readcount=0(读者计数)\n\n读者：\nwait(mutex); readcount++;\nif(readcount==1) wait(wmutex); // 第一个读者锁写者\nsignal(mutex);\n读操作...\nwait(mutex); readcount--;\nif(readcount==0) signal(wmutex); // 最后读者放写者\nsignal(mutex);\n\n写者：\nwait(wmutex);\n写操作...\nsignal(wmutex);", "pitfall": "读者优先=只要有读者在读，写者必须等待。可能导致写者饥饿。"}, {"type": "short", "points": 0, "question": "【大题5·银行家】系统3类资源A/B/C，总量(10,5,7)。5个进程：P1(分配0,1,0 最大7,5,3)、P2(分配2,0,0 最大3,2,2)、P3(分配3,0,2 最大9,0,2)、P4(分配2,1,1 最大2,2,2)、P5(分配0,0,2 最大4,3,3)。(1)求Need矩阵 (2)判断是否安全并给出安全序列。", "answer": -1, "explanation": "(1) Need=Max-Allocation\nP1: 7,4,3; P2: 1,2,2; P3: 6,0,0; P4: 0,1,1; P5: 4,3,1\n\n(2) Available=(10,5,7)-(7,2,5)=(3,3,2)\n安全序列检查：P2(need 1,2,2 ≤ 3,3,2)→完成释放(2,0,0)得(5,3,2)→P4(0,1,1≤)→释放得(7,4,3)→P1→P3→P5\n存在安全序列：<strong>P2→P4→P1→P3→P5</strong>，系统安全。", "pitfall": "Available = 总量 - 所有Allocation之和。Need必须小于等于Available才能完成。"}, {"type": "short", "points": 0, "question": "【大题6·地址转换】某分页系统地址32位，页内偏移12位。求：(1)页面大小 (2)最多多少页 (3)若页表项4B，页表最大多大？", "answer": -1, "explanation": "(1) 页面大小 = 2^12 = <strong>4KB</strong>\n(2) 页号位数 = 32-12 = 20位，最多页面数 = 2^20 = <strong>1M页(约104万页)</strong>\n(3) 页表最大 = 2^20 × 4B = <strong>4MB</strong>\n\n这也是为什么需要多级页表——4MB太大了。", "pitfall": "页内偏移位数决定页面大小，地址总长-偏移=页号位数。"}, {"type": "short", "points": 0, "question": "【大题7·页面置换】分配4个物理块，页面序列1,2,1,2,3,4,3,4。分别用LRU和LFU计算缺页次数和缺页率。", "answer": -1, "explanation": "<strong>LRU</strong>(4个块)：\n1缺(1,-,-,-)→2缺(1,2,-,-)→1命中→2命中→3缺(1,2,3,-)→4缺(1,2,3,4)→3命中→4命中\n缺页=<strong>4次</strong>，缺页率=4/8=<strong>50%</strong>\n\n<strong>LFU</strong>(4个块)：\n1缺→2缺→1命中→2命中→3缺→4缺→3命中→4命中\n缺页=<strong>4次</strong>，缺页率=4/8=<strong>50%</strong>\n\n对比3块时：LRU=4次(50%), LFU=6次(75%)。4块时两者相同。", "pitfall": "块数越多不一定缺页越少（Belady异常仅FIFO有）。LRU和LFU无Belady异常。"}, {"type": "short", "points": 0, "question": "【大题8·FIFO Belady】分配3块vs4块，序列3,2,1,0,3,2,4,3,2,1,0,4。用FIFO分别计算缺页次数，验证Belady异常。", "answer": -1, "explanation": "<strong>3块FIFO</strong>：逐一替换...缺页次数=<strong>9次</strong>\n<strong>4块FIFO</strong>：逐一替换...缺页次数=<strong>10次</strong>\n\n4块比3块缺页更多！这就是<strong>Belady异常</strong>——FIFO特有的现象。\n\n原因：FIFO不考虑页面使用频率，增块反而替换掉正在使用的页面。", "pitfall": "Belady异常仅FIFO有。LRU、OPT、Clock都没有。这是必考点！"}, {"type": "short", "points": 0, "question": "【大题9·C-SCAN】磁盘200磁道(0~199)，磁头55向增大方向。请求83,13,44,90,30,67,93,19。用C-SCAN算法计算访问顺序和总移动距离。", "answer": -1, "explanation": "C-SCAN(单向扫描)：55→67(12)→83(16)→90(7)→93(3)→199(106)→0(199)→13(13)→19(6)→30(11)→44(14)\n总距离=12+16+7+3+106+199+13+6+11+14=<strong>387</strong>\n\n对比SCAN(118)和SSTF(122)，C-SCAN最均匀但总距离最大。", "pitfall": "C-SCAN到199后直接跳到0，中间的返回路程不算服务距离，但移动距离要算。"}, {"type": "short", "points": 0, "question": "【大题10·LOOK算法】用LOOK算法（电梯改进版）代替SCAN重做上题，比较区别。", "answer": -1, "explanation": "LOOK与SCAN区别：SCAN到端点才折返，LOOK到最远请求即折返。\n\nLOOK(55→增大方向)：55→67(12)→83(16)→90(7)→93(3)→44(49)→30(14)→19(11)→13(6)\n总距离=12+16+7+3+49+14+11+6=<strong>118</strong>\n\n此例中SCAN最大请求93<199，所以LOOK=SCAN。若最大请求=150，SCAN多走49段到199，LOOK节省。", "pitfall": "LOOK=SCAN优化版，只走到最远请求处，不碰物理端点。"}, {"type": "short", "points": 0, "question": "【大题11·混合索引】某文件系统盘块4KB，块号4B。直接索引10项，一级间索1项，二级间索1项，三级间索1项。求最大文件长度。", "answer": -1, "explanation": "每块可存盘块号数 = 4KB/4B = <strong>1024个</strong>\n直接索引：10 × 4KB = 40KB\n一级间索：1024 × 4KB = 4MB\n二级间索：1024² × 4KB = 4GB\n三级间索：1024³ × 4KB = 4TB\n最大文件 = 40KB + 4MB + 4GB + 4TB ≈ <strong>4TB</strong>", "pitfall": "计算关键：先算每块可存多少块号(块大小/块号大小)，再逐级乘。"}, {"type": "short", "points": 0, "question": "【大题12·文件系统】某文件系统盘块1KB，索引块可存256个块号。采用两级索引，求最大文件长度。", "answer": -1, "explanation": "两级索引：256² × 1KB = 65536 × 1KB = <strong>64MB</strong>\n\n计算：256个一级索引块，每块指向256个数据块，每个数据块1KB。\n256 × 256 × 1KB = 65536KB = 64MB。", "pitfall": "与上题对比：块越小，块号越多，但每块容量小。权衡设计。"}, {"type": "short", "points": 0, "question": "【大题13·死锁判断】资源分配图中有5个进程、3类资源各多实例。图中存在环路。问：系统是否一定死锁？说明理由。", "answer": -1, "explanation": "<strong>不一定死锁。</strong>\n\n理由：资源分配图中，若每类资源有多个实例，则环路是死锁的<strong>必要条件而非充分条件</strong>。\n\n有环+多实例 → 可能死锁也可能不死锁（可能有某进程能完成并释放资源打破环）。\n有环+每类单实例 → 充分必要条件（有环⇔死锁）。\n无环 → 一定不死锁（无论单多实例）。", "pitfall": "经典判断题！多实例有环不一定死锁。"}, {"type": "short", "points": 0, "question": "【大题14·综合】比较SPOOLing系统与虚拟存储器在「虚拟化」思想上的异同。", "answer": -1, "explanation": "<strong>相同点</strong>：都利用了虚拟化思想——用磁盘空间模拟物理资源，让用户感觉资源更多。\n\n<strong>SPOOLing</strong>：将独占设备虚拟化为共享设备（如打印机）。使用磁盘上的输入井/输出井缓冲数据。\n\n<strong>虚拟存储器</strong>：将磁盘空间虚拟化为内存空间。利用局部性原理，程序不必全部装入内存即可运行。\n\n核心区别：SPOOLing虚拟的是I/O设备，虚拟存储虚拟的是内存。", "pitfall": "都是「用磁盘换资源」——SPOOLing换设备共享，虚拟存储换内存容量。"}, {"type": "short", "points": 0, "question": "【大题15·抖动】系统CPU利用率突然降到很低，磁盘I/O非常频繁。判断可能原因并给出解决方案。", "answer": -1, "explanation": "原因：系统发生<strong>抖动（Thrashing）</strong>——进程分配的物理块不足，频繁缺页，大量时间花在页面换入换出上，CPU利用率骤降。\n\n解决方案：\n① <strong>工作集模型</strong>——根据进程的工作集大小动态调整分配的物理块数\n② <strong>减少多道程序度</strong>——挂起部分进程，释放物理块\n③ <strong>增加物理内存</strong>——但这是硬件层面\n④ 采用<strong>局部置换策略</strong>——防止一个进程的抖动影响其他进程", "pitfall": "抖动时CPU利用率低不是因为CPU忙，而是因为所有进程都在等I/O(页面换入)。"}];
+</script>
+<script src="../assets/common.js"></script>
+</body>
+</html>

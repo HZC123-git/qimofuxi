@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>计算机操作系统 · 背诵检测</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<link rel="stylesheet" href="../assets/common.css">
+
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>计算机操作系统 · 背诵检测</h1>
+<h2 style="text-align:center">章节测试</h2>
+<p style="text-align:center;color:var(--ink-light);font-size:0.95em">概念填空 · 判断辨析</p>
+
+<div id="score-box"><div class="score-num" id="score-num">0</div><div class="score-label">总分</div></div>
+<div id="questions-container"></div>
+<div class="grading-bar no-print"><button onclick="gradeAll()" id="grade-btn">提交批改</button></div>
+
+<script>
+var Q = [{"type": "fill", "points": 0, "question": "操作系统的四大特征是：____、____、____、____。", "answer": [["并发性", "共享性", "虚拟性", "异步性"], ["并发", "共享", "虚拟", "异步"]], "explanation": "并发性、共享性、虚拟性、异步性。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "操作系统提供给应用程序的接口是____。", "answer": "系统调用", "explanation": "系统调用是OS提供给应用程序的唯一接口。命令解释器和GUI是给用户用的。", "pitfall": "不要和命令解释器、GUI搞混。"}, {"type": "fill", "points": 0, "question": "用户程序通过执行____指令发起系统调用，CPU从____态切换到____态。", "answer": [["陷入", "Trap", "用户", "内核"], ["Trap", "陷入", "用户", "内核"]], "explanation": "陷入指令（Trap）→ 用户态 → 内核态。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "进程的组成包括三部分：____、____和____。", "answer": [["PCB", "进程控制块", "程序段", "数据段"], ["进程控制块", "程序段", "数据段"]], "explanation": "PCB（进程控制块）+ 程序段 + 数据段。PCB不包含程序代码本身。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "进程是____的基本单位，线程是____的基本单位。", "answer": [["资源分配", "CPU调度"], ["资源分配", "处理机调度"]], "explanation": "进程=资源分配单位，线程=CPU调度单位。这是最核心的区别。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "进程从运行状态进入阻塞状态的原因通常是____。", "answer": "I/O操作请求", "explanation": "I/O请求→阻塞；时间片用完→就绪。", "pitfall": "时间片用完是到就绪态，不是阻塞态！"}, {"type": "fill", "points": 0, "question": "信号量S的初值为3，当前值为-2，表示有____个进程正在等待。", "answer": "2", "explanation": "S<0时，|S|=等待进程数。-2表示2个进程在等待。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "临界区访问的四项基本原则是：____、____、____、____。", "answer": [["空闲让进", "忙则等待", "有限等待", "让权等待"], ["空闲让进", "忙则等待", "有限等待", "让权等待"]], "explanation": "空闲让进、忙则等待、有限等待、让权等待。'优先等待'不是原则。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "死锁的四个必要条件是：____、____、____、____。", "answer": [["互斥", "请求和保持", "不可抢占", "循环等待"], ["互斥条件", "请求和保持条件", "不可抢占条件", "循环等待条件"]], "explanation": "互斥、请求和保持、不可抢占、循环等待。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "银行家算法在死锁处理策略中属于____。", "answer": "死锁避免", "explanation": "死锁避免（在分配前判断安全状态），不是预防也不是检测。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "逻辑地址→物理地址的转换过程称为____。", "answer": "重定位", "explanation": "重定位（Relocation）。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "分页系统的地址空间是____维的，分段系统的地址空间是____维的。", "answer": [["一", "二"], ["1", "2"]], "explanation": "分页=一维（一个地址就够），分段=二维（段号+偏移）。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "分页会产生____碎片，分段会产生____碎片。", "answer": [["内部", "外部"], ["内部碎片", "外部碎片"]], "explanation": "分页→内部碎片（最后一页用不完），分段→外部碎片（空闲区分散）。", "pitfall": "不要搞反！"}, {"type": "fill", "points": 0, "question": "虚拟存储器实现的主要理论基础是____。", "answer": "程序的局部性原理", "explanation": "局部性原理（时间局部性+空间局部性）。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "会发生Belady异常（分配物理块增加缺页反而增加）的页面置换算法是____。", "answer": "FIFO算法", "explanation": "只有FIFO有Belady异常！LRU和OPT都没有。", "pitfall": "高频考点！"}, {"type": "fill", "points": 0, "question": "抖动（Thrashing）现象的根本原因是____。", "answer": "分配给进程的物理块数量不足", "explanation": "物理块不足→页面频繁换入换出→CPU利用率骤降。解决方案：工作集模型。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "SPOOLing技术可以将____设备改造为____设备。", "answer": [["独占", "共享"], ["独占设备", "共享设备"]], "explanation": "SPOOLing的核心功能：独占设备→共享设备。井是磁盘上的区域。", "pitfall": ""}, {"type": "fill", "points": 0, "question": "在UNIX文件系统中，索引节点（inode）中不包含____信息。", "answer": "文件名", "explanation": "文件名在目录项中，不在inode中！inode存物理位置、时间、权限等。", "pitfall": "高频陷阱！"}, {"type": "tf", "points": 0, "question": "FIFO页面置换算法可能发生Belady异常。", "answer": 0, "explanation": "正确。FIFO是唯一会发生Belady异常的算法。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "死锁避免需要事先知道进程对资源的最大需求量。", "answer": 0, "explanation": "正确。银行家算法需要知道Max需求。这是死锁避免的前提。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "分段存储管理会产生内部碎片，分页存储管理会产生外部碎片。", "answer": 1, "explanation": "错误！刚好相反：分页→内部碎片，分段→外部碎片。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "在资源分配图中，若每个资源类型只有一个实例，则存在环路是死锁的充分必要条件。", "answer": 0, "explanation": "正确。单实例：有环⇔死锁；多实例：有环不一定死锁，无环一定不死锁。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "多对一线程模型中，多个用户线程可以并行执行在多核处理器上。", "answer": 1, "explanation": "错误。多对一模型只有一个内核线程，无法并行执行。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "用户级线程对操作系统内核是透明的。", "answer": 0, "explanation": "正确。内核不知道用户线程的存在。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "系统处于不安全状态一定会发生死锁。", "answer": 1, "explanation": "错误。不安全状态是有可能死锁，不是一定死锁。", "pitfall": "高频陷阱！可能≠一定。"}, {"type": "tf", "points": 0, "question": "C-SCAN磁盘调度算法比SCAN算法提供更均匀的等待时间。", "answer": 0, "explanation": "正确。C-SCAN单向服务，返回不处理，各磁道等待更均匀。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "虚拟存储器的基本特征包括驻留性。", "answer": 1, "explanation": "错误！三大特征：多次性、对换性、虚拟性。驻留性不是特征。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "信号量的P操作和V操作必须成对出现在同一进程中。", "answer": 1, "explanation": "错误。P和V可以出现在不同进程中（如生产者-消费者问题）。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "死锁预防是通过设置条件破坏死锁必要条件，但可能降低资源利用率。", "answer": 0, "explanation": "正确。预防=破坏条件，代价是资源利用率低。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "临界区是指访问临界资源的那段代码，不是临界资源本身。", "answer": 0, "explanation": "正确。临界区=代码，临界资源=被保护的资源。", "pitfall": ""}, {"type": "tf", "points": 0, "question": "DMA方式和通道控制方式都不需要CPU干预即可完成数据传输。", "answer": 0, "explanation": "正确。DMA和通道都是不需要CPU干预的I/O方式。", "pitfall": ""}];
+</script>
+<script src="../assets/common.js"></script>
+</body>
+</html>

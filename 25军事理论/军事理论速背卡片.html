@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>军事理论 · 速背卡片</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>军事理论 · 速背卡片</h1>
+<div class="toc">
+<h2>目录</h2>
+<ul>
+<li><a href="#s41118762">速背清单 · 军事理论</a></li>
+<li><a href="#s99522108">一、中国国防 必考·简答论述</a></li>
+  <li><a href="#s53456905">1. 国防的四大基本要素 必考填空</a></li>
+  <li><a href="#s61025514">2. 国防历史的三大启示 必考·主观题10分</a></li>
+  <li><a href="#s30136928">3. 关键时间节点</a></li>
+  <li><a href="#s14990117">4. 根本宗旨 重点</a></li>
+  <li><a href="#s33900806">5. 国防动员五大内容 必考·主观题</a></li>
+  <li><a href="#s42766095">6. 我国的国防观</a></li>
+<li><a href="#s71218308">二、国家安全 必考</a></li>
+  <li><a href="#s10764033">1. 根本原则 重点</a></li>
+  <li><a href="#s41801921">2. 总体国家安全观 重点</a></li>
+  <li><a href="#s57847373">3. 太空安全</a></li>
+  <li><a href="#s35381960">4. 中国周边安全</a></li>
+<li><a href="#s23575531">三、军事思想 必考·论述</a></li>
+  <li><a href="#s44961491">1. 军事思想发展阶段</a></li>
+  <li><a href="#s24542009">2. 《孙子兵法》</a></li>
+  <li><a href="#s56908509">3. 党在新时代的强军目标 必考填空</a></li>
+  <li><a href="#s91354256">4. 毛泽东军事思想五大内容 必考·主观题10分</a></li>
+  <li><a href="#s67689941">5. 习近平强军思想</a></li>
+  <li><a href="#s11821060">6. 中国古代军事思想</a></li>
+  <li><a href="#s56365382">7. 外国军事思想</a></li>
+<li><a href="#s59529276">四、现代战争 重点</a></li>
+  <li><a href="#s84336747">1. 战争本质属性</a></li>
+  <li><a href="#s56059190">2. 新军事革命内涵</a></li>
+  <li><a href="#s70205927">3. 机械化战争 vs 信息化战争</a></li>
+  <li><a href="#s50720228">4. 信息化战争六大特征</a></li>
+  <li><a href="#s14422812">5. 信息化战争核心要素 重点</a></li>
+  <li><a href="#s26652789">6. 战争发展方向</a></li>
+<li><a href="#s30712299">五、信息化装备 重点</a></li>
+  <li><a href="#s50198781">1. 信息化装备分类</a></li>
+  <li><a href="#s25568345">2. 信息化作战平台分类</a></li>
+  <li><a href="#s88318648">3. 精确制导武器</a></li>
+  <li><a href="#s51554027">4. 定向能武器</a></li>
+  <li><a href="#s42493080">5. 潜艇优势</a></li>
+  <li><a href="#s53218804">6. C4ISR</a></li>
+  <li><a href="#s65299120">7. 指挥控制系统</a></li>
+  <li><a href="#s62116999">8. 信息化装备特点</a></li>
+<li><a href="#s56576123">考前必背30条</a></li>
+</ul>
+</div>
+<h2 id="s41118762">速背清单 · 军事理论</h2>
+
+<!-- ════════════════════ 第一章 ════════════════════ -->
+<h2 id="s99522108">一、中国国防 <span class="tag-must">必考·简答论述</span></h2>
+
+<h3 id="s53456905">1. 国防的四大基本要素 <span class="tag-must">必考填空</span></h3>
+<table>
+<tr><td>①</td><td><span class="kp">国防的主体</span></td><td>谁来保卫</td></tr>
+<tr><td>②</td><td><span class="kp">国防的目的</span></td><td>保卫什么</td></tr>
+<tr><td>③</td><td><span class="kp">国防的对象</span></td><td>防备什么</td></tr>
+<tr><td>④</td><td><span class="kp">国防的手段</span></td><td>怎样保卫</td></tr>
+</table>
+
+<h3 id="s61025514">2. 国防历史的三大启示 <span class="tag-must">必考·主观题10分</span></h3>
+<p>① <span class="kp">国家统一和民族团结是国防强大的关键</span></p>
+<p>② <span class="kp">科技进步是国防强大的重要保证</span></p>
+<p>③ <span class="kp">保持忧患意识是国防巩固发展的前提</span>（有备才能无患，能战方能止战）</p>
+
+<h3 id="s30136928">3. 关键时间节点</h3>
+<table>
+<tr><td>第一部兵役法</td><td><span class="kp">1955年</span></td></tr>
+<tr><td>信息支援部队成立</td><td><span class="kp">2024年4月19日</span></td></tr>
+<tr><td>新《国防教育法》施行</td><td><span class="kp">2024年9月13日</span>修订通过</td></tr>
+</table>
+
+<h3 id="s14990117">4. 根本宗旨 <span class="tag-key">重点</span></h3>
+<p><span class="kp">全心全意为人民服务</span>是人民解放军的唯一宗旨</p>
+
+<h3 id="s33900806">5. 国防动员五大内容 <span class="tag-must">必考·主观题</span></h3>
+<p>①武装力量动员 ②国民经济动员 ③政治动员 ④交通运输动员 ⑤人民防空动员</p>
+
+<h3 id="s42766095">6. 我国的国防观</h3>
+<p>树立新时代中国国防观，把<span class="kp">服务构建人类命运共同体</span>作为重要内容，高举合作共赢旗帜</p>
+
+<!-- ════════════════════ 第二章 ════════════════════ -->
+<h2 id="s71218308">二、国家安全 <span class="tag-must">必考</span></h2>
+
+<h3 id="s10764033">1. 根本原则 <span class="tag-key">重点</span></h3>
+<p><span class="kp">坚持党对国家安全工作的绝对领导</span>，是我国国家安全工作的根本原则</p>
+
+<h3 id="s41801921">2. 总体国家安全观 <span class="tag-key">重点</span></h3>
+<p>关键是<span class="kp">「总体」</span>，核心要义是<span class="kp">「十个坚持」</span>，突出「大安全」，强调系统思维和方法</p>
+
+<h3 id="s57847373">3. 太空安全</h3>
+<p>太空安全属于<span class="kp">非传统领域</span>的安全（判断题常考！）</p>
+
+<h3 id="s35381960">4. 中国周边安全</h3>
+<p>我国地处亚洲<span class="kp">东部</span>，是世界上<span class="kp">陆海邻国最多</span>的国家。陆上邻国<span class="kp">14</span>个。中印边界约<span class="kp">2000</span>千米，分东中西三段，<span class="kp">尚未正式划定</span>。</p>
+
+<!-- ════════════════════ 第三章 ════════════════════ -->
+<h2 id="s23575531">三、军事思想 <span class="tag-must">必考·论述</span></h2>
+
+<h3 id="s44961491">1. 军事思想发展阶段</h3>
+<p>军事思想作为独立意识形态出现，始于<span class="kp">奴隶社会</span>（不是资本主义！）</p>
+<p>外国军事思想在<span class="kp">古希腊和古罗马</span>获得显著发展</p>
+<p>无产阶级军事思想在<span class="kp">马克思主义诞生后</span>开始确立</p>
+
+<h3 id="s24542009">2. 《孙子兵法》</h3>
+<p>我国<span class="kp">现存最早</span>的一部兵书，被公认为<span class="kp">「世界第一兵书」</span></p>
+
+<h3 id="s56908509">3. 党在新时代的强军目标 <span class="tag-must">必考填空</span></h3>
+<p>建设一支<span class="kp">听党指挥、能打胜仗、作风优良</span>的人民军队，把人民军队全面建成<span class="kp">世界一流军队</span></p>
+
+<h3 id="s91354256">4. 毛泽东军事思想五大内容 <span class="tag-must">必考·主观题10分</span></h3>
+<table>
+<tr><td>①</td><td><span class="kp">军事辩证法思想</span></td><td>战争本质、规律、主观与客观</td></tr>
+<tr><td>②</td><td><span class="kp">人民军队思想</span></td><td>建军原则、唯一宗旨、绝对领导</td></tr>
+<tr><td>③</td><td><span class="kp">人民战争思想</span></td><td>核心内容！兵民是胜利之本</td></tr>
+<tr><td>④</td><td><span class="kp">人民战争的战略战术思想</span></td><td>最精彩部分！灵活机动</td></tr>
+<tr><td>⑤</td><td><span class="kp">国防建设思想</span></td><td>巩固国防、现代化国防</td></tr>
+</table>
+<blockquote>口诀：「辩军战战国」—— 辩证法、军队、战争、战略战术、国防</blockquote>
+
+<h3 id="s67689941">5. 习近平强军思想</h3>
+<p>集中体现在<span class="kp">「十一个明确」</span>的新概括</p>
+
+<h3 id="s11821060">6. 中国古代军事思想</h3>
+<p>戚继光 → <span class="kp">鸳鸯阵</span>（抗倭，东南沿海）</p>
+<p>北宋 → <span class="kp">《武经总要》</span>是中国古代第一部军事教科书集</p>
+
+<h3 id="s56365382">7. 外国军事思想</h3>
+<p>克劳塞维茨 → <span class="kp">《战争论》</span>（战争与政治、经济的关系）</p>
+<p>德国鲁登道夫 → <span class="kp">「总体战」</span>理论（一战后）</p>
+
+<!-- ════════════════════ 第四章 ════════════════════ -->
+<h2 id="s59529276">四、现代战争 <span class="tag-key">重点</span></h2>
+
+<h3 id="s84336747">1. 战争本质属性</h3>
+<p><span class="kp">政治性、暴烈性、盖然性（偶然性）</span></p>
+
+<h3 id="s56059190">2. 新军事革命内涵</h3>
+<p>以<span class="kp">信息技术</span>为核心，推动军事技术、装备、理论、编制体制<span class="kp">整体根本性变化</span></p>
+
+<h3 id="s70205927">3. 机械化战争 vs 信息化战争</h3>
+<table>
+<tr><th></th><th>机械化战争</th><th>信息化战争</th></tr>
+<tr><td>核心</td><td>机械化装备</td><td><span class="kp">信息支撑、信息主导</span></td></tr>
+<tr><td>代表战例</td><td>凡尔登战役（1916，破坏性大、持续久）</td><td>—</td></tr>
+<tr><td>战场空间</td><td>陆海空</td><td><span class="kp">陆海空天+网络电磁+认知领域</span></td></tr>
+</table>
+
+<h3 id="s50720228">4. 信息化战争六大特征</h3>
+<p>①武器装备—信息支撑 ②战场能量—信息主导 ③战场空间—多维一体</p>
+<p>④作战目标—三大系统 ⑤争夺焦点—<span class="kp">制信息权</span> ⑥作战形态—联合作战</p>
+
+<h3 id="s14422812">5. 信息化战争核心要素 <span class="tag-key">重点</span></h3>
+<p><span class="kp">信息</span>是信息化战争的核心要素</p>
+
+<h3 id="s26652789">6. 战争发展方向</h3>
+<p>「三无」方向：<span class="kp">无人、无形、无声</span>（判断题！）</p>
+
+<!-- ════════════════════ 第五章 ════════════════════ -->
+<h2 id="s30712299">五、信息化装备 <span class="tag-key">重点</span></h2>
+
+<h3 id="s50198781">1. 信息化装备分类</h3>
+<p><span class="kp">进攻型</span>信息化装备 + <span class="kp">防御型</span>信息化装备</p>
+<p>「软杀伤」+「硬杀伤」两类</p>
+
+<h3 id="s25568345">2. 信息化作战平台分类</h3>
+<p>①陆上 ②海上 ③空中 ④<span class="kp">太空</span>信息化作战平台</p>
+
+<h3 id="s88318648">3. 精确制导武器</h3>
+<p>「精确」主要指武器<span class="kp">命中目标的精度</span></p>
+
+<h3 id="s51554027">4. 定向能武器</h3>
+<p>属于信息化装备的一种</p>
+
+<h3 id="s42493080">5. 潜艇优势</h3>
+<p><span class="kp">隐蔽性高、突击能力强、续航能力强、自给能力强、杀伤力巨大</span></p>
+
+<h3 id="s53218804">6. C4ISR</h3>
+<p>「S」代表<span class="kp">监视（Surveillance）</span>，不是通信！（判断题陷阱）</p>
+
+<h3 id="s65299120">7. 指挥控制系统</h3>
+<p>是<span class="kp">综合电子信息系统的核心</span>（填空题）</p>
+
+<h3 id="s62116999">8. 信息化装备特点</h3>
+<p>具有多种特点，不属于的是：<span class="kp">体积庞大</span></p>
+
+<!-- ════════════════════ -->
+<h2 id="s56576123">考前必背30条</h2>
+<ol class="must-remember">
+<li>国防四要素：<span class="kp">主体、目的、对象、手段</span></li>
+<li>国防历史启示：<span class="kp">统一团结、科技进步、忧患意识</span></li>
+<li>第一部兵役法：<span class="kp">1955年</span></li>
+<li>人民军队宗旨：<span class="kp">全心全意为人民服务</span></li>
+<li>信息支援部队成立：<span class="kp">2024年4月19日</span></li>
+<li>国防动员五内容：<span class="kp">武装力量、国民经济、政治、交通运输、人民防空</span></li>
+<li>国家安全根本原则：<span class="kp">坚持党对国家安全工作的绝对领导</span></li>
+<li>太空安全属于<span class="kp">非传统领域</span>安全</li>
+<li>军事思想作为独立意识形态始于<span class="kp">奴隶社会</span></li>
+<li>孙子兵法：现存<span class="kp">最早</span>兵书，「世界第一兵书」</li>
+<li>强军目标：<span class="kp">听党指挥、能打胜仗、作风优良</span></li>
+<li>毛泽东军事思想五部分：<span class="kp">辩军战战国</span></li>
+<li>习近平强军思想：<span class="kp">「十一个明确」</span></li>
+<li>戚继光创<span class="kp">鸳鸯阵</span>（抗倭）</li>
+<li>北宋<span class="kp">《武经总要》</span>第一部军事教科书集</li>
+<li>克劳塞维茨<span class="kp">《战争论》</span></li>
+<li>鲁登道夫<span class="kp">「总体战」</span>理论</li>
+<li>战争本质属性：<span class="kp">政治性、暴烈性、盖然性</span></li>
+<li>新军事革命核心：<span class="kp">信息技术</span></li>
+<li>凡尔登战役：1916，破坏性大、持续时间久</li>
+<li>信息化战争六大特征之首：<span class="kp">信息支撑、信息主导</span></li>
+<li>信息化战争核心要素：<span class="kp">信息</span></li>
+<li>战争「三无」发展方向：<span class="kp">无人、无形、无声</span></li>
+<li>信息化装备两大类：<span class="kp">进攻型 + 防御型</span></li>
+<li>C4ISR的S代表<span class="kp">监视（Surveillance）</span>而非通信</li>
+<li>指挥控制系统是<span class="kp">综合电子信息系统的核心</span></li>
+<li>中国陆上邻国<span class="kp">14</span>个，地处亚洲<span class="kp">东部</span></li>
+<li>中印边界约<span class="kp">2000</span>千米，<span class="kp">尚未正式划定</span></li>
+<li>火箭军前身是<span class="kp">第二炮兵</span></li>
+<li>中国首颗原子弹爆炸：<span class="kp">1964年</span>新疆罗布泊</li>
+</ol>
+
+
+</body>
+</html>

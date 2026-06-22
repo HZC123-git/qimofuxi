@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>计算机操作系统 · 速背卡片</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>计算机操作系统 · 速背卡片</h1>
+<div class="toc">
+<h2>目录</h2>
+<ul>
+<li><a href="#s92066051">速背清单 · 计算机操作系统</a></li>
+<li><a href="#s28768198">一、操作系统概述 重点</a></li>
+  <li><a href="#s50378820">四大特征</a></li>
+  <li><a href="#s38106990">OS 提供给应用程序的接口</a></li>
+  <li><a href="#s37413582">用户态→内核态的切换机制</a></li>
+  <li><a href="#s19602829">内核架构对比 必考</a></li>
+<li><a href="#s97540252">二、进程与线程 必考</a></li>
+  <li><a href="#s91605645">进程 vs 程序</a></li>
+  <li><a href="#s82869190">进程组成三部分</a></li>
+  <li><a href="#s48152682">进程五状态转换 重点</a></li>
+  <li><a href="#s61779091">进程 vs 线程 必考</a></li>
+  <li><a href="#s59528370">线程模型</a></li>
+  <li><a href="#s87042665">用户级线程特点</a></li>
+<li><a href="#s54097963">三、处理机调度 必考</a></li>
+  <li><a href="#s47818521">三级调度</a></li>
+  <li><a href="#s56368665">调度算法对比 必考</a></li>
+  <li><a href="#s38485224">抢占 vs 非抢占</a></li>
+<li><a href="#s78786282">四、进程同步与互斥 必考·大题</a></li>
+  <li><a href="#s60674459">临界区访问四原则</a></li>
+  <li><a href="#s60742362">信号量 必考</a></li>
+  <li><a href="#s44775170">经典同步问题模板</a></li>
+  <li><a href="#s57757932">管程（Monitor）</a></li>
+  <li><a href="#s18455476">进程间通信方式</a></li>
+<li><a href="#s79312238">五、死锁 必考·银行家算法</a></li>
+  <li><a href="#s30484460">四个必要条件 必背</a></li>
+  <li><a href="#s58444343">处理策略</a></li>
+  <li><a href="#s45669287">银行家算法 必考大题</a></li>
+  <li><a href="#s51858718">死锁判断关键</a></li>
+<li><a href="#s27887350">六、存储管理 必考·计算题</a></li>
+  <li><a href="#s21895808">重定位</a></li>
+  <li><a href="#s23962608">分页 vs 分段 必考</a></li>
+  <li><a href="#s26367173">页表与快表</a></li>
+  <li><a href="#s21809846">地址转换计算 必考大题</a></li>
+  <li><a href="#s81108825">虚拟存储器 重点</a></li>
+  <li><a href="#s47364327">页面置换算法 必考</a></li>
+  <li><a href="#s35681486">抖动（Thrashing）</a></li>
+  <li><a href="#s55676127">Belady异常</a></li>
+<li><a href="#s13286462">七、设备管理 重点</a></li>
+  <li><a href="#s39692630">I/O控制方式（CPU干预从高到低）</a></li>
+  <li><a href="#s30157257">SPOOLing技术</a></li>
+  <li><a href="#s88569309">设备独立性</a></li>
+  <li><a href="#s16177046">I/O软件层次（底→顶）</a></li>
+<li><a href="#s35947150">八、磁盘调度 必考·计算题</a></li>
+<li><a href="#s76717888">九、文件系统 重点</a></li>
+  <li><a href="#s71507559">文件物理结构</a></li>
+  <li><a href="#s30523554">inode 不含的信息</a></li>
+  <li><a href="#s97899714">混合索引计算</a></li>
+<li><a href="#s43726060">考前速记 · 易错点</a></li>
+</ul>
+</div>
+<h2 id="s92066051">速背清单 · 计算机操作系统</h2>
+
+<!-- ════════════════════ 第一章 ════════════════════ -->
+<h2 id="s28768198">一、操作系统概述 <span class="tag-key">重点</span></h2>
+
+<h3 id="s50378820">四大特征</h3>
+<p><span class="kp">并发性、共享性、虚拟性、异步性</span></p>
+
+<h3 id="s38106990">OS 提供给应用程序的接口</h3>
+<p><span class="kp">系统调用</span>（不是命令解释器或GUI）</p>
+
+<h3 id="s37413582">用户态→内核态的切换机制</h3>
+<p>通过执行<span class="kp">陷入指令（Trap）</span>实现，不是外部中断或时钟中断</p>
+
+<h3 id="s19602829">内核架构对比 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th></th><th>宏内核</th><th>微内核</th></tr>
+<tr><td>通信方式</td><td><span class="kp">直接函数调用</span></td><td><span class="kp">进程间通信（IPC）</span></td></tr>
+<tr><td>文件系统</td><td>内核态</td><td><span class="kp">用户态</span>（不在微内核内）</td></tr>
+<tr><td>优点</td><td>效率高</td><td>可靠性高、易扩展</td></tr>
+</table>
+
+<h2 id="s97540252">二、进程与线程 <span class="tag-must">必考</span></h2>
+
+<h3 id="s91605645">进程 vs 程序</h3>
+<p><span class="kp">进程 = 程序的动态执行过程</span>，程序 = 静态指令集合</p>
+
+<h3 id="s82869190">进程组成三部分</h3>
+<p><span class="kp">PCB（进程控制块）+ 程序段 + 数据段</span></p>
+<p>PCB不包含：<span class="kp">程序代码</span>本身</p>
+
+<h3 id="s48152682">进程五状态转换 <span class="tag-key">重点</span></h3>
+<p>创建 → <span class="kp">就绪</span> → <span class="kp">运行</span> → <span class="kp">阻塞</span> → 终止</p>
+<p>运行→阻塞：<span class="kp">I/O请求</span>（不是时间片用完！时间片用完→就绪）</p>
+
+<h3 id="s61779091">进程 vs 线程 <span class="tag-must">必考</span></h3>
+<p><span class="kp">进程 = 资源分配基本单位</span></p>
+<p><span class="kp">线程 = CPU调度基本单位</span></p>
+
+<h3 id="s59528370">线程模型</h3>
+<table>
+<tr><th>模型</th><th>特点</th></tr>
+<tr><td>多对一</td><td>多用户线程→1内核线程，<span class="kp">无法并行</span></td></tr>
+<tr><td>一对一</td><td>并发度最高，<span class="kp">开销最大</span></td></tr>
+</table>
+
+<h3 id="s87042665">用户级线程特点</h3>
+<p><span class="kp">对操作系统内核透明</span>（内核不知道用户线程存在）</p>
+
+<!-- ════════════════════ 第三章 ════════════════════ -->
+<h2 id="s54097963">三、处理机调度 <span class="tag-must">必考</span></h2>
+
+<h3 id="s47818521">三级调度</h3>
+<table>
+<tr><th>级别</th><th>别称</th><th>功能</th></tr>
+<tr><td>高级调度</td><td>作业调度</td><td><span class="kp">决定哪些作业进入内存</span></td></tr>
+<tr><td>中级调度</td><td>内存调度</td><td>挂起/换入换出</td></tr>
+<tr><td>低级调度</td><td>进程调度</td><td>决定CPU分配给谁</td></tr>
+</table>
+
+<h3 id="s56368665">调度算法对比 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th>算法</th><th>特点</th><th>缺点</th></tr>
+<tr><td>FCFS</td><td>先来先服务</td><td>短作业可能等很久</td></tr>
+<tr><td>SJF</td><td>短作业优先</td><td><span class="kp">长作业饥饿</span></td></tr>
+<tr><td>RR</td><td>时间片轮转</td><td>时间片太小→<span class="kp">上下文切换开销大</span></td></tr>
+<tr><td>优先级</td><td>按优先级</td><td>低优先级饥饿→用<span class="kp">动态优先级/老化</span></td></tr>
+<tr><td>MLFQ</td><td>多级反馈队列</td><td>CPU密集型<span class="kp">逐步降级</span></td></tr>
+</table>
+
+<h3 id="s38485224">抢占 vs 非抢占</h3>
+<p>非抢占：进程获得CPU后<span class="kp">一直运行到结束或主动放弃</span></p>
+
+<!-- ════════════════════ 第四章 ════════════════════ -->
+<h2 id="s78786282">四、进程同步与互斥 <span class="tag-must">必考·大题</span></h2>
+
+<h3 id="s60674459">临界区访问四原则</h3>
+<p><span class="kp">空闲让进、忙则等待、有限等待、让权等待</span></p>
+<p>"优先等待"不是原则！</p>
+
+<h3 id="s60742362">信号量 <span class="tag-must">必考</span></h3>
+<p>S>0：表示<span class="kp">可用资源数</span></p>
+<p>S<0：|S| = <span class="kp">等待进程数</span></p>
+<p>P操作（wait）：S=S-1，若S<0则阻塞</p>
+<p>V操作（signal）：S=S+1，若S≤0则唤醒</p>
+
+<h3 id="s44775170">经典同步问题模板</h3>
+<p>生产者-消费者：<span class="kp">empty + full + mutex</span>（三个信号量）</p>
+<p>读者-写者（读者优先）：<span class="kp">mutex + wmutex + readcount</span></p>
+
+<h3 id="s57757932">管程（Monitor）</h3>
+<p>一次只允许<span class="kp">一个进程</span>进入；条件变量用<span class="kp">wait/signal</span></p>
+<p>signal不会<span class="kp">立即</span>让等待进程获得CPU（错！）</p>
+
+<h3 id="s18455476">进程间通信方式</h3>
+<p>共享存储、<span class="kp">消息传递</span>、<span class="kp">管道通信</span></p>
+<p>无名管道：只能用于<span class="kp">父子亲缘关系</span>进程</p>
+
+<!-- ════════════════════ 第五章 ════════════════════ -->
+<h2 id="s79312238">五、死锁 <span class="tag-must">必考·银行家算法</span></h2>
+
+<h3 id="s30484460">四个必要条件 <span class="tag-must">必背</span></h3>
+<p>①<span class="kp">互斥</span> ②<span class="kp">请求和保持</span> ③<span class="kp">不可抢占</span> ④<span class="kp">循环等待</span></p>
+
+<h3 id="s58444343">处理策略</h3>
+<table>
+<tr><th>策略</th><th>方法</th><th>特点</th></tr>
+<tr><td>预防</td><td><span class="kp">破坏必要条件</span></td><td>资源利用率低</td></tr>
+<tr><td>避免</td><td><span class="kp">银行家算法</span></td><td>判断安全状态</td></tr>
+<tr><td>检测</td><td>资源分配图法+死锁定理</td><td>事后处理</td></tr>
+<tr><td>解除</td><td>撤销进程/剥夺资源</td><td>代价大</td></tr>
+</table>
+
+<h3 id="s45669287">银行家算法 <span class="tag-must">必考大题</span></h3>
+<p>步骤：①算Need = Max - Allocation；②找安全序列；③试分配→<span class="kp">检查安全状态</span></p>
+
+<h3 id="s51858718">死锁判断关键</h3>
+<p>资源分配图有环 + 每资源单实例 = <span class="kp">充分必要条件</span>（有环⇔死锁）</p>
+<p>资源分配图有环 + 多实例 = <span class="kp">必要条件</span>（有环不一定死锁，无环一定不死锁）</p>
+
+<!-- ════════════════════ 第六章 ════════════════════ -->
+<h2 id="s27887350">六、存储管理 <span class="tag-must">必考·计算题</span></h2>
+
+<h3 id="s21895808">重定位</h3>
+<p><span class="kp">逻辑地址→物理地址</span>的过程叫重定位</p>
+
+<h3 id="s23962608">分页 vs 分段 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th></th><th>分页</th><th>分段</th></tr>
+<tr><td>划分依据</td><td><span class="kp">物理（固定大小）</span></td><td><span class="kp">逻辑（可变大小）</span></td></tr>
+<tr><td>地址空间</td><td><span class="kp">一维</span></td><td><span class="kp">二维</span></td></tr>
+<tr><td>碎片</td><td><span class="kp">内部碎片</span></td><td><span class="kp">外部碎片</span></td></tr>
+<tr><td>优点</td><td>管理简单</td><td><span class="kp">便于共享和模块化</span></td></tr>
+</table>
+
+<h3 id="s26367173">页表与快表</h3>
+<p>页表：每个进程一个，记录<span class="kp">页号→物理块号</span>映射</p>
+<p>TLB（快表）：<span class="kp">高速缓存</span>，加速地址转换</p>
+<p>页表项至少包含：<span class="kp">物理块号 + 状态位（存在位）</span></p>
+
+<h3 id="s21809846">地址转换计算 <span class="tag-must">必考大题</span></h3>
+<p>页号 = 逻辑地址 / 页面大小</p>
+<p>页内偏移 = 逻辑地址 % 页面大小</p>
+<p>物理地址 = 块号 × 页面大小 + 页内偏移</p>
+<p>页号 ≥ 页表长度 → <span class="kp">越界中断</span></p>
+
+<h3 id="s81108825">虚拟存储器 <span class="tag-key">重点</span></h3>
+<p>理论基础：<span class="kp">程序的局部性原理</span></p>
+<p>三大特征：<span class="kp">多次性、对换性、虚拟性</span>（驻留性不是！）</p>
+
+<h3 id="s47364327">页面置换算法 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th>算法</th><th>特点</th><th>Belady异常</th></tr>
+<tr><td>OPT</td><td>理论最优，无法实现</td><td>无</td></tr>
+<tr><td>FIFO</td><td>先进先出</td><td><span class="kp">有！</span></td></tr>
+<tr><td>LRU</td><td>最近最久未使用</td><td>无</td></tr>
+<tr><td>Clock</td><td><span class="kp">访问位+循环扫描</span>，近似LRU</td><td>无</td></tr>
+</table>
+
+<h3 id="s35681486">抖动（Thrashing）</h3>
+<p>根本原因：<span class="kp">分配给进程的物理块不足</span></p>
+<p>解决方案：<span class="kp">工作集模型</span></p>
+
+<h3 id="s55676127">Belady异常</h3>
+<p><span class="kp">FIFO</span>算法特有：物理块增加，缺页次数反而增加</p>
+
+<h2 id="s13286462">七、设备管理 <span class="tag-key">重点</span></h2>
+
+<h3 id="s39692630">I/O控制方式（CPU干预从高到低）</h3>
+<p>①程序直接控制 ②中断驱动 ③DMA ④<span class="kp">通道</span></p>
+<p>不需CPU干预：<span class="kp">DMA和通道</span></p>
+
+<h3 id="s30157257">SPOOLing技术</h3>
+<p>将<span class="kp">独占设备→共享设备</span>；"井"是<span class="kp">磁盘上的区域</span></p>
+
+<h3 id="s88569309">设备独立性</h3>
+<p>通过<span class="kp">逻辑设备表（LUT）</span>实现逻辑→物理设备映射</p>
+
+<h3 id="s16177046">I/O软件层次（底→顶）</h3>
+<p>硬件 → <span class="kp">中断处理程序</span> → 设备驱动程序 → <span class="kp">设备独立性软件</span> → <span class="kp">用户层I/O软件</span></p>
+
+<h2 id="s35947150">八、磁盘调度 <span class="tag-must">必考·计算题</span></h2>
+
+<table>
+<tr><th>算法</th><th>策略</th><th>特点</th></tr>
+<tr><td>FCFS</td><td>按请求顺序</td><td>公平但效率低</td></tr>
+<tr><td>SSTF</td><td><span class="kp">最短寻道优先</span></td><td>可能饥饿</td></tr>
+<tr><td>SCAN</td><td>电梯算法，来回扫</td><td>两端请求等待长</td></tr>
+<tr><td>C-SCAN</td><td>单向扫描，返回不服务</td><td><span class="kp">更均匀</span></td></tr>
+<tr><td>LOOK</td><td>SCAN改进，到最远请求即折返</td><td>不需到物理端点</td></tr>
+</table>
+
+<h2 id="s76717888">九、文件系统 <span class="tag-key">重点</span></h2>
+
+<h3 id="s71507559">文件物理结构</h3>
+<table>
+<tr><th>方式</th><th>优点</th><th>缺点</th></tr>
+<tr><td>连续分配</td><td>随机访问快</td><td><span class="kp">外部碎片</span>，不便扩展</td></tr>
+<tr><td>链式分配</td><td>无外部碎片</td><td><span class="kp">不支持高效随机访问</span></td></tr>
+<tr><td>索引分配</td><td>随机访问+无碎片</td><td>索引块开销</td></tr>
+</table>
+
+<h3 id="s30523554">inode 不含的信息</h3>
+<p><span class="kp">文件名</span>（文件名在目录项中，不在inode中！）</p>
+
+<h3 id="s97899714">混合索引计算</h3>
+<p>直接10项+一级1项+二级1项+三级1项，块4KB，块号4B → 最大约<span class="kp">4TB</span></p>
+
+<h2 id="s43726060">考前速记 · 易错点</h2>
+<ol>
+<li>运行→阻塞原因：<span class="kp">I/O请求</span>，不是时间片用完</li>
+<li>FIFO有<span class="kp">Belady异常</span>，LRU/OPT没有</li>
+<li>分页有<span class="kp">内部碎片</span>，分段有<span class="kp">外部碎片</span>（不要搞反）</li>
+<li>银行家算法属于<span class="kp">死锁避免</span>，不是预防</li>
+<li>信号量S=-2表示<span class="kp">2个进程等待</span></li>
+<li>临界区=访问临界资源的<span class="kp">代码</span>，不是资源本身</li>
+<li>用户级线程对内核<span class="kp">透明</span></li>
+<li>SPOOLing把独占设备变<span class="kp">共享</span>设备</li>
+<li>C-SCAN比SCAN<span class="kp">更均匀</span></li>
+<li>死锁避免需要事先知道<span class="kp">最大资源需求</span></li>
+</ol>
+
+
+</body>
+</html>
