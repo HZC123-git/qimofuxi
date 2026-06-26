@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>概率论与数理统计 · 公式手册</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+/* === Interactive Test Styles === */
+
+/* ── Score box ── */
+#score-box {
+  display: none; background: var(--paper-dark); color: var(--ink);
+  padding: 16px 20px; border-radius: var(--radius); margin: 14px 0;
+  text-align: center; border: 1px solid var(--card-border);
+}
+#score-box .score-num { font-size: 2.2em; font-weight: 700; }
+#score-box .score-label { font-size: 0.85em; color: var(--ink-light); }
+
+/* ── Question card ── */
+.q-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius); padding: 12px 14px; margin: 10px 0;
+  transition: all 0.15s;
+}
+.q-card.correct { border-left: 3px solid var(--correct); background: #f7fdf4; }
+.q-card.wrong   { border-left: 3px solid var(--wrong); background: #fef9f9; }
+
+.q-num  { font-weight: 700; font-size: 0.98em; margin-bottom: 4px; }
+.q-text { margin-bottom: 8px; font-size: 0.98em; }
+
+/* ── Options (compact) ── */
+.option {
+  display: block; padding: 4px 10px; margin: 3px 0;
+  border: 1px solid var(--card-border); border-radius: 4px;
+  cursor: pointer; transition: all 0.12s; font-size: 0.93em;
+  background: #fefcf5;
+}
+.option:hover            { background: #f0ede0; }
+.option input            { margin-right: 6px; }
+.option.selected         { border-color: var(--accent); background: #eff6ff; }
+.option.correct-answer   { border-color: var(--correct); background: var(--correct-bg); }
+.option.wrong-answer     { border-color: var(--wrong); background: var(--wrong-bg); }
+
+/* ── Textareas (compact) ── */
+.q-textarea {
+  width: 100%; min-height: 56px; border: 1px solid var(--card-border);
+  border-radius: 4px; padding: 6px 10px; font-family: inherit;
+  font-size: 0.93em; background: #fefcf5; resize: vertical;
+}
+.q-textarea:focus { outline: none; border-color: var(--accent); }
+.q-code {
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.88em; line-height: 1.5; background: #1e1e2e; color: #e0e0e0;
+  tab-size: 4; white-space: pre;
+}
+.q-code:focus { border-color: var(--accent); }
+
+/* ── Partial-credit badge ── */
+.badge-partial { background: #fef3c7; color: #92400e; }
+.q-card.partial { border-color: #f59e0b; }
+
+/* ── Result after grading ── */
+.result {
+  display: none; margin-top: 8px; padding: 8px 12px;
+  background: #fefcf5; border: 1px solid var(--card-border);
+  border-radius: 4px; font-size: 0.9em; line-height: 1.6;
+}
+.result .badge {
+  display: inline-block; padding: 1px 9px; border-radius: 3px;
+  font-weight: 700; font-size: 0.82em; margin-right: 6px;
+}
+.badge-ok  { background: var(--correct-bg); color: #166534; }
+.badge-no  { background: var(--wrong-bg); color: #991b1b; }
+.badge-ref { background: #dbeafe; color: #1e40af; }
+
+.result .explanation { margin-top: 4px; color: var(--ink); }
+.result .pitfall { color: #b45309; margin-top: 3px; font-size: 0.9em; }
+
+/* ── Grading button ── */
+.grading-bar { text-align: center; margin: 20px 0; }
+.grading-bar button {
+  font-size: 1em; padding: 8px 32px; background: var(--accent);
+  color: #fff; border: none; border-radius: var(--radius);
+  cursor: pointer; font-weight: 600; letter-spacing: 0.3px;
+}
+.grading-bar button:hover     { background: var(--accent-hover); }
+.grading-bar button:disabled  { background: #bbb; cursor: not-allowed; }
+
+</style>
+</head>
+<body><header id="exampass-header"><div class="header-left"><span class="header-brand">ExamPass Assistant</span></div><div class="header-right"><span class="header-url">oitedu.online</span></div></header><hr class="header-divider">
+<h1>概率论与数理统计 · 公式手册</h1>
+<div class="toc"><p><strong>目录</strong></p><p>第一章 概率论基本概念 | 第二章 随机变量 | 第三章 随机向量 | 第四章 数字特征 | 典型例题8道</p></div>
+<h2>第一章 概率论的基本概念</h2>
+<h3>一、主要内容</h3>
+<h3>二、重要公式与概念</h3>
+<p><strong>1. 事件的关系与运算</strong></p>
+<p class="kp">包含关系：A ⊂ B</p>
+<p class="kp">相等关系：A = B</p>
+<p class="kp">和事件：A ∪ B（A + B）</p>
+<p class="kp">积事件：A ∩ B（AB）</p>
+<p class="kp">差事件：A - B</p>
+<p class="kp">互不相容（互斥）：AB = ∅</p>
+<p class="kp">对立事件（逆事件）：A ∪ B = S, AB = ∅</p>
+<p><strong>2. 概率的基本性质</strong></p>
+<p class="kp">非负性：0 ≤ P(A) ≤ 1</p>
+<p class="kp">规范性：P(S) = 1</p>
+<p class="kp">可列可加性：若A₁, A₂, ... 两两互不相容，则 P(∪Aᵢ) = ΣP(Aᵢ)</p>
+<p class="kp">P(∅) = 0</p>
+<p class="kp">有限可加性</p>
+<p class="kp">减法公式：P(A - B) = P(A) - P(AB)</p>
+<p class="kp">加法公式：P(A ∪ B) = P(A) + P(B) - P(AB)</p>
+<p><strong>3. 古典概型</strong></p>
+<p class="kp">P(A) = A包含的基本事件数 / S中基本事件的总数</p>
+<p><strong>4. 条件概率与乘法公式</strong></p>
+<p>条件概率：P(B|A) = P(AB) / P(A) （P(A) > 0）</p>
+<p>乘法公式：P(AB) = P(A)P(B|A)</p>
+<p><strong>5. 全概率公式与贝叶斯公式</strong></p>
+<p>全概率公式：P(A) = ΣP(Bᵢ)P(A|Bᵢ)</p>
+<p>贝叶斯公式：P(Bᵢ|A) = P(Bᵢ)P(A|Bᵢ) / ΣP(Bⱼ)P(A|Bⱼ)</p>
+<p><strong>6. 事件的独立性</strong></p>
+<p class="kp">定义：P(AB) = P(A)P(B)，则称A、B相互独立</p>
+<p class="kp">性质：若A、B独立，则A与B̄、Ā与B、Ā与B̄也独立</p>
+<h2>第二章 随机变量</h2>
+<h3>一、主要内容</h3>
+<h3>二、重要概念</h3>
+<p><strong>1. 随机变量的分布函数</strong></p>
+<p class="kp">定义：F(x) = P{X ≤ x}, -∞ < x < +∞</p>
+<p class="kp">性质：</p>
+<p>(1) 单调不减性</p>
+<p>(2) 0 ≤ F(x) ≤ 1</p>
+<p>(3) 右连续性</p>
+<p>(4) F(-∞) = 0, F(+∞) = 1</p>
+<p><strong>2. 离散型随机变量</strong></p>
+<p>分布律：P{X = xₖ} = pₖ, k = 1, 2, ...</p>
+<p class="kp">性质：pₖ ≥ 0, Σpₖ = 1</p>
+<p><strong>3. 连续型随机变量</strong></p>
+<p>概率密度f(x)满足：</p>
+<p class="kp">F(x) = ∫(-∞,x) f(t)dt</p>
+<p class="kp">性质：</p>
+<p>(1) f(x) ≥ 0</p>
+<p>(2) ∫(-∞,+∞) f(x)dx = 1</p>
+<p>(3) P{x₁ < X ≤ x₂} = F(x₂) - F(x₁) = ∫(x₁,x₂) f(x)dx</p>
+<p>(4) 若f(x)在x处连续，则F'(x) = f(x)</p>
+<p><strong>4. 随机变量的函数的分布</strong></p>
+<p>离散型：直接计算Y=g(X)的取值及对应概率</p>
+<p>连续型：分布函数法（先求F_Y(y)，再求导得f_Y(y)）</p>
+<h2>第三章 随机向量</h2>
+<h3>一、主要内容</h3>
+<h3>二、重要概念与公式</h3>
+<p><strong>1. 二维随机变量的分布函数</strong></p>
+<p class="kp">定义：F(x,y) = P{X ≤ x, Y ≤ y}</p>
+<p class="kp">性质：单调不减、右连续、0 ≤ F(x,y) ≤ 1等</p>
+<p><strong>2. 二维离散型随机变量</strong></p>
+<p>联合分布律：P{X = xᵢ, Y = yⱼ} = pᵢⱼ</p>
+<p>边缘分布律：</p>
+<p>pᵢ· = P{X = xᵢ} = Σⱼ pᵢⱼ</p>
+<p>p·ⱼ = P{Y = yⱼ} = Σᵢ pᵢⱼ</p>
+<p>条件分布律：</p>
+<p>P{X = xᵢ | Y = yⱼ} = pᵢⱼ / p·ⱼ</p>
+<p><strong>3. 二维连续型随机变量</strong></p>
+<p>联合概率密度f(x,y)满足：</p>
+<p class="kp">F(x,y) = ∫(-∞,x)∫(-∞,y) f(u,v)dudv</p>
+<p>边缘概率密度：</p>
+<p>f_X(x) = ∫(-∞,+∞) f(x,y)dy</p>
+<p>f_Y(y) = ∫(-∞,+∞) f(x,y)dx</p>
+<p>条件概率密度：</p>
+<p>f_{X|Y}(x|y) = f(x,y) / f_Y(y)</p>
+<p><strong>4. 随机变量的独立性</strong></p>
+<p class="kp">定义：F(x,y) = F_X(x)F_Y(y) 对所有x,y成立</p>
+<p>离散型：pᵢⱼ = pᵢ· · p·ⱼ</p>
+<p>连续型：f(x,y) = f_X(x)f_Y(y)</p>
+<p><strong>5. 二维随机变量函数的分布</strong></p>
+<p>Z = X + Y的分布（卷积公式）：</p>
+<p>f_Z(z) = ∫(-∞,+∞) f(x, z-x)dx</p>
+<p>M = max(X,Y)的分布：</p>
+<p>F_M(z) = F_X(z)F_Y(z) （独立时）</p>
+<p>N = min(X,Y)的分布：</p>
+<p>F_N(z) = 1 - [1 - F_X(z)][1 - F_Y(z)] （独立时）</p>
+<h2>第四章 随机变量的数字特征</h2>
+<h3>一、主要内容</h3>
+<h3>二、重要公式与性质</h3>
+<p><strong>1. 数学期望</strong></p>
+<p>离散型：E(X) = Σxₖpₖ</p>
+<p>连续型：E(X) = ∫(-∞,+∞) x f(x)dx</p>
+<p class="kp">性质：</p>
+<p>(1) E(C) = C</p>
+<p>(2) E(CX) = C E(X)</p>
+<p>(3) E(X + Y) = E(X) + E(Y)</p>
+<p>(4) 若X、Y独立，则E(XY) = E(X)E(Y)</p>
+<p>随机变量函数的期望：</p>
+<p>E[g(X)] = Σg(xₖ)pₖ （离散型）</p>
+<p>E[g(X)] = ∫(-∞,+∞) g(x)f(x)dx （连续型）</p>
+<p><strong>2. 方差</strong></p>
+<p class="kp">定义：D(X) = E{[X - E(X)]²} = E(X²) - [E(X)]²</p>
+<p class="kp">性质：</p>
+<p>(1) D(C) = 0</p>
+<p>(2) D(CX) = C² D(X)</p>
+<p>(3) D(X + Y) = D(X) + D(Y) + 2Cov(X,Y)</p>
+<p>(4) 若X、Y独立，则D(X + Y) = D(X) + D(Y)</p>
+<p>标准差（均方差）：σ(X) = √D(X)</p>
+<p><strong>3. 协方差与相关系数</strong></p>
+<p>协方差：Cov(X,Y) = E[(X-E(X))(Y-E(Y))] = E(XY) - E(X)E(Y)</p>
+<p>相关系数：ρ_XY = Cov(X,Y) / (√D(X)√D(Y))</p>
+<p class="kp">性质：</p>
+<p>(1) |ρ_XY| ≤ 1</p>
+<p>(2) |ρ_XY| = 1 ⇔ P{Y = aX + b} = 1</p>
+<p>(3) 若X、Y独立，则ρ_XY = 0（不相关）</p>
+<p class="kp">注意：不相关不一定独立</p>
+<p>附录：常用分布汇总表</p>
+<p>考试题型与考点分布</p>
+<h3>一、客观题（共计占比40%）</h3>
+<p><strong>1. 选择题（5题）</strong></p>
+<p>(1) 常用分布 —— 中等难度</p>
+<p>(2) 分布函数 —— 较易</p>
+<p>(3) 随机变量函数的分布 —— 较难</p>
+<p>(4) 期望的性质 —— 中等</p>
+<p>(5) 方差的性质 —— 中等</p>
+<p><strong>2. 填空题（5题）</strong></p>
+<p>(1) 事件间的关系与运算 —— 中等</p>
+<p>(2) 分布函数 —— 较易</p>
+<p>(3) 常用分布的分布律、概率密度 —— 较易</p>
+<p>(4) 随机变量函数的分布 —— 较难</p>
+<p>(5) 协方差 —— 较易</p>
+<p><strong>3. 判断题（5题）</strong></p>
+<p>(1) 事件间的关系 —— 较易</p>
+<p>(2) 随机实验 —— 中等</p>
+<p>(3) 相关系数 —— 较易</p>
+<p>(4) 协方差 —— 中等</p>
+<p>(5) （待补充）</p>
+<h3>二、简答与计算题（共4题，共30分）</h3>
+<p><strong>1. 离散型随机变量 —— 较易</strong></p>
+<p><strong>2. 连续型随机变量 —— 中等</strong></p>
+<p><strong>3. 二维离散型随机向量 —— 较易</strong></p>
+<p><strong>4. 二维连续型随机向量 —— 较难</strong></p>
+<h3>三、综合应用题（共3题，共30分）</h3>
+<p><strong>1. 常用分布及其性质</strong></p>
+<p><strong>2. 全概率公式、贝叶斯公式</strong></p>
+<p><strong>3. 二维随机变量函数的极值分布（嵌套的常用分布）</strong></p>
+<p>典型例题</p>
+<p>例题1：离散型随机变量（分布函数求分布律）</p>
+<p>【题目】随机变量X的分布函数为：</p>
+<p class="kp">F(x) = 0,           x < -1</p>
+<p>= 0.4,    -1 ≤ x < 1</p>
+<p>= 0.8,     1 ≤ x < 3</p>
+<p>= 1,           x ≥ 3</p>
+<p>求：(1) X的分布律；(2) D(1-X)</p>
+<p>【解答】</p>
+<p>(1) X的可能取值为分布函数的跳跃点：-1, 1, 3</p>
+<p>P{X = -1} = F(-1) - F(-1⁻) = 0.4 - 0 = 0.4</p>
+<p>P{X = 1} = F(1) - F(1⁻) = 0.8 - 0.4 = 0.4</p>
+<p>P{X = 3} = F(3) - F(3⁻) = 1 - 0.8 = 0.2</p>
+<p>分布律：</p>
+<p>X |  -1  |   1   |   3</p>
+<p>P |  0.4 |  0.4  |  0.2</p>
+<p>(2) E(X) = (-1)×0.4 + 1×0.4 + 3×0.2 = -0.4 + 0.4 + 0.6 = 0.6</p>
+<p class="kp">E(X²) = (-1)²×0.4 + 1²×0.4 + 3²×0.2 = 0.4 + 0.4 + 1.8 = 2.6</p>
+<p class="kp">D(X) = E(X²) - [E(X)]² = 2.6 - 0.36 = 2.24</p>
+<p class="kp">D(1 - X) = D(X) = 2.24 （方差性质：D(aX+b) = a²D(X)）</p>
+<p>例题2：连续型随机变量（分布函数求密度）</p>
+<p>【题目】已知随机变量X的分布函数为：</p>
+<p class="kp">F(x) = 0,              x ≤ -6</p>
+<p>= (x+6)/12,   -6 < x < 6</p>
+<p>= 1,               x ≥ 6</p>
+<p>求：(1) X的概率密度；(2) E(X)；(3) P{1 < X < 2.5}</p>
+<p>【解答】</p>
+<p>(1) 对F(x)求导得概率密度：</p>
+<p class="kp">f(x) = F'(x) = 1/12,  -6 < x < 6</p>
+<p class="kp">f(x) = 0,         其他</p>
+<p>(2) E(X) = ∫(-∞,+∞) x f(x) dx = ∫(-6,6) x/12 dx</p>
+<p>= [x²/24]|(-6,6) = (36/24) - (36/24) = 0</p>
+<p>（或直接由均匀分布的期望公式：E(X) = (a+b)/2 = (-6+6)/2 = 0）</p>
+<p>(3) P{1 < X < 2.5} = F(2.5) - F(1) = (2.5+6)/12 - (1+6)/12</p>
+<p>= 8.5/12 - 7/12 = 1.5/12 = 1/8 = 0.125</p>
+<p>例题3：全概率公式与贝叶斯公式</p>
+<p>【题目】小赵要去外地参加一次会议，他乘火车、轮船、汽车、飞机的概率分别为0.3, 0.2, 0.1, 0.4。</p>
+<p>如果乘火车、轮船、汽车，迟到的概率分别为1/4, 1/3, 1/12，而乘飞机则不会迟到。问：</p>
+<p>(1) 小赵迟到的概率是多少？</p>
+<p>(2) 如果他确实迟到了，那他是乘火车的概率是多少？</p>
+<p>【解答】</p>
+<p>设事件B = {迟到}，A₁ = {乘火车}，A₂ = {乘轮船}，A₃ = {乘汽车}，A₄ = {乘飞机}</p>
+<p>则 A₁, A₂, A₃, A₄ 构成样本空间的一个划分。</p>
+<p>已知：</p>
+<p class="kp">P(A₁) = 0.3, P(A₂) = 0.2, P(A₃) = 0.1, P(A₄) = 0.4</p>
+<p class="kp">P(B|A₁) = 1/4, P(B|A₂) = 1/3, P(B|A₃) = 1/12, P(B|A₄) = 0</p>
+<p>(1) 由全概率公式：</p>
+<p class="kp">P(B) = P(A₁)P(B|A₁) + P(A₂)P(B|A₂) + P(A₃)P(B|A₃) + P(A₄)P(B|A₄)</p>
+<p>= 0.3×(1/4) + 0.2×(1/3) + 0.1×(1/12) + 0.4×0</p>
+<p>= 0.075 + 0.0667 + 0.0083 + 0</p>
+<p>= 0.15 = 3/20</p>
+<p>(2) 由贝叶斯公式：</p>
+<p class="kp">P(A₁|B) = P(A₁)P(B|A₁) / P(B)</p>
+<p>= (0.3 × 1/4) / 0.15</p>
+<p>= 0.075 / 0.15</p>
+<p>= 0.5 = 1/2</p>
+<p>例题4：指数分布及其无记忆性</p>
+<p>【题目】假设在一个公共洗衣房内，每个人使用洗衣机的时间X（以分钟为单位）是随机的，</p>
+<p>并且这个时间服从参数为1/10的指数分布，求解以下问题：</p>
+<p>(1) 你走进洗衣房时，发现刚好有一个人在你之前开始使用洗衣机，那么你需要等待的时间超过10分钟的概率是多少？</p>
+<p>(2) 假设你到达洗衣房时，第一位用户已经使用了20分钟，那么此时你需要等待的时间超过10分钟的概率是多少？</p>
+<p>【解答】</p>
+<p>X ~ Exp(λ = 1/10)</p>
+<p>概率密度：f(x) = (1/10)e^(-x/10),  x > 0</p>
+<p>分布函数：F(x) = 1 - e^(-x/10),  x > 0</p>
+<p>(1) 等待时间超过10分钟的概率：</p>
+<p>P{X > 10} = 1 - F(10) = 1 - (1 - e^(-10/10)) = e⁻¹ ≈ 0.3679</p>
+<p>(2) 已知已经使用了20分钟，还需等待超过10分钟的概率：</p>
+<p>由指数分布的无记忆性：P{X > s + t | X > s} = P{X > t}</p>
+<p>P{X > 30 | X > 20} = P{X > 10} = e⁻¹ ≈ 0.3679</p>
+<p>例题5：二维连续型随机变量（条件密度）</p>
+<p>【题目】设(X,Y)是二维随机变量，X的边缘概率密度为：</p>
+<p>f_X(x) = 3x²,  0 < x < 1</p>
+<p>= 0,    其他</p>
+<p>在给定X = x (0 < x < 1)的条件下Y的条件概率密度为：</p>
+<p>f_{Y|X}(y|x) = 2y/x²,  0 < y < x</p>
+<p>= 0,      其他</p>
+<p>求：(1) (X,Y)的概率密度f(x,y)；(2) Y的边缘概率密度f_Y(y)</p>
+<p>【解答】</p>
+<p>(1) 由条件概率密度公式：f(x,y) = f_{Y|X}(y|x) · f_X(x)</p>
+<p>当 0 < y < x < 1 时：</p>
+<p class="kp">f(x,y) = (2y/x²) · 3x² = 6y/x</p>
+<p>其他区域：f(x,y) = 0</p>
+<p>(2) Y的边缘概率密度：</p>
+<p>f_Y(y) = ∫(-∞,+∞) f(x,y) dx</p>
+<p>当 0 < y < 1 时：</p>
+<p>f_Y(y) = ∫(y,1) (6y/x) dx = 6y · [lnx]|(y,1) = 6y(0 - lny) = -6y lny</p>
+<p>其他区域：f_Y(y) = 0</p>
+<p>例题6：二维离散型随机变量（独立性）</p>
+<p>【题目】X与Y是两相互独立的二维离散型随机向量，其联合分布律如下：</p>
+<p>（表格略）求各未知参数的值。</p>
+<p>【解答思路】</p>
+<p>利用独立性条件：pᵢⱼ = pᵢ· × p·ⱼ</p>
+<p>以及边缘分布的性质：Σpᵢ· = 1, Σp·ⱼ = 1</p>
+<p>逐步求解各未知参数。</p>
+<p>例题7：极值分布（嵌套的常用分布）</p>
+<p>【题目】设某种型号的电子管的寿命（以小时计）近似地服从N(160, 20²)分布，</p>
+<p>随机地选取4只，求其中没有一只寿命小于180h的概率。</p>
+<p>【解答】</p>
+<p>设这四只寿命为Xᵢ (i = 1, 2, 3, 4)，则 Xᵢ ~ N(160, 20²)，且相互独立。</p>
+<p>令 N = min{X₁, X₂, X₃, X₄}</p>
+<p>"没有一只寿命小于180h" 即 min{X₁,X₂,X₃,X₄} ≥ 180</p>
+<p>等价于 X₁ ≥ 180, X₂ ≥ 180, X₃ ≥ 180, X₄ ≥ 180 同时成立</p>
+<p>P{N ≥ 180} = P{X₁ ≥ 180, X₂ ≥ 180, X₃ ≥ 180, X₄ ≥ 180}</p>
+<p>= [P{X₁ ≥ 180}]⁴ （独立性）</p>
+<p>= [1 - F(180)]⁴</p>
+<p>其中 F(x) 为 N(160, 20²) 的分布函数：</p>
+<p>P{X₁ ≥ 180} = 1 - Φ((180 - 160)/20) = 1 - Φ(1) ≈ 1 - 0.8413 = 0.1587</p>
+<p>因此 P{N ≥ 180} = (0.1587)⁴ ≈ 0.00063</p>
+<p>例题8：均匀分布的极值分布</p>
+<p>【题目】设X,Y相互独立，同服从(0,2)上的均匀分布，Z = min(X,Y)，</p>
+<p>则 P{0 < Z < 1} = ?</p>
+<p>【解答】</p>
+<p>方法一：利用分布函数法</p>
+<p>F_Z(z) = P{Z ≤ z} = P{min(X,Y) ≤ z}</p>
+<p>= 1 - P{min(X,Y) > z}</p>
+<p>= 1 - P{X > z, Y > z}</p>
+<p>= 1 - P{X > z}P{Y > z} （独立性）</p>
+<p>X,Y ~ U(0,2)，故 P{X > z} = (2 - z)/2,  0 < z < 2</p>
+<p>F_Z(z) = 1 - [(2-z)/2]² = 1 - (2-z)²/4</p>
+<p>f_Z(z) = F_Z'(z) = (2-z)/2,  0 < z < 2</p>
+<p>P{0 < Z < 1} = ∫(0,1) (2-z)/2 dz = [z - z²/4]|(0,1) = 1 - 1/4 = 3/4</p>
+<p>方法二：直接计算</p>
+<p>P{0 < Z < 1} = P{Z > 0} - P{Z ≥ 1}</p>
+<p>= P{min > 0} - P{min ≥ 1}</p>
+<p>= P{X > 0, Y > 0} - P{X ≥ 1, Y ≥ 1}</p>
+<p>= 1×1 - (1/2)×(1/2) = 1 - 1/4 = 3/4</p>
+</body>
+</html>
